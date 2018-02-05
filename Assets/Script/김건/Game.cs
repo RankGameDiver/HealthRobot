@@ -10,12 +10,16 @@ public class Game : MonoBehaviour
     private float timer; // 미니게임의 타이머
     public GameObject[] enemy;
 
+    private UImanager uiManager { get { return gameObject.GetComponent<UImanager>(); } }
+
+    public Sprite[] virusImg;
+
     private Vector2 touchPos;
     private Touch touch;
 
     private int deltaTime;
     public int coolTime; // Enemy 생성 대기시간
-    private int tempTime = 0;
+    public int tempTime = 0;
 
     void Update()
     {
@@ -25,7 +29,7 @@ public class Game : MonoBehaviour
             tempTime++;
         }
 
-        if (tempTime >= coolTime)
+        if (tempTime >= coolTime && uiManager.ingame)
         {
             CreateEnemy();
             tempTime = 0;
@@ -81,6 +85,9 @@ public class Game : MonoBehaviour
                 Enemy s_enemy = enemy[i].GetComponent<Enemy>();
                 s_enemy.life = 1;
                 s_enemy.score = 100;
+                s_enemy.enemyKind = Random.Range(0, 4);
+                enemy[i].GetComponent<SpriteRenderer>().sprite = virusImg[s_enemy.enemyKind];
+                s_enemy.ColliderReset(s_enemy.enemyKind);
                 enemy[i].transform.position = new Vector2(Random.Range(-8.0f, 8.0f), Random.Range(-4.0f, 4.0f));
                 enemy[i].SetActive(true);
                 i = 10;
