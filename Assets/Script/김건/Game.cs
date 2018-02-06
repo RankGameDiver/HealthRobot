@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -88,7 +89,7 @@ public class Game : MonoBehaviour
                 s_enemy.enemyKind = Random.Range(0, 4);
                 enemy[i].GetComponent<SpriteRenderer>().sprite = virusImg[s_enemy.enemyKind];
                 s_enemy.ColliderReset(s_enemy.enemyKind);
-                enemy[i].transform.position = new Vector2(Random.Range(-8.0f, 8.0f), Random.Range(-4.0f, 4.0f));
+                enemy[i].transform.position = new Vector2(Random.Range(-7.0f, 7.0f), Random.Range(-4.0f, 4.0f));
                 enemy[i].SetActive(true);
                 i = 10;
             }
