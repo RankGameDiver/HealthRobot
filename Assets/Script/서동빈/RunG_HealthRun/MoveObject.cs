@@ -13,7 +13,7 @@ public class MoveObject : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         transform.Translate(new Vector3(-player.speed * percent * Time.deltaTime / 100, 0));
 	}
 }

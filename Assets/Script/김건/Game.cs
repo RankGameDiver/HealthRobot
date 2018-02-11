@@ -12,6 +12,7 @@ public class Game : MonoBehaviour
     public GameObject[] enemy;
 
     private UImanager uiManager { get { return gameObject.GetComponent<UImanager>(); } }
+    private RayCheck rayCheck { get { return gameObject.GetComponent<RayCheck>(); } }
 
     public Sprite[] virusImg;
 
@@ -24,54 +25,22 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        if (deltaTime != System.DateTime.Now.Second)
+        Timer();
+        rayCheck.Touch();
+        if (rayCheck.Ray())
         {
-            deltaTime = System.DateTime.Now.Second;
-            tempTime++;
-        }
-
-        if (tempTime >= coolTime && uiManager.ingame)
-        {
-            CreateEnemy();
-            tempTime = 0;
-        }
-
-        if (Input.GetMouseButtonDown(0)) // 마우스 클릭시 실행
-        {
-//            Debug.Log("mouse Click");
-            touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Ray(touchPos);
-        }
-
-        if (Input.touchCount > 0) // 터치시 실행
-        {
-            touch = Input.GetTouch(0);
-            touchPos = Camera.main.ScreenToViewportPoint(touch.position);
-            Ray(touchPos);
-        }
-    }
-
-    public void Ray(Vector2 pos)
-    {
-        Ray2D ray = new Ray2D(pos, Vector2.zero);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-        if (hit.collider != null)
-        {
-            Debug.Log(hit.collider.gameObject);
-            if (hit.collider.gameObject.tag == "Enemy") // Enemy 터치시 실행
+            Enemy s_enemy = rayCheck.Ray("Enemy").GetComponent<Enemy>();
+            GameObject g_enemy = rayCheck.Ray("Enemy");
+            if (s_enemy.life <= 1)
             {
-                Enemy s_enemy = hit.collider.gameObject.GetComponent<Enemy>();
-                GameObject g_enemy = hit.collider.gameObject;
-                if (s_enemy.life <= 1)
-                {
-                    totalScore += s_enemy.score;
-                    g_enemy.SetActive(false);
-                }
-                else
-                {
-                    s_enemy.life--;
-                }
+                totalScore += s_enemy.score;
+                g_enemy.SetActive(false);
             }
+            else
+            {
+                s_enemy.life--;
+            }
+            rayCheck.RayReset();
         }
     }
 
@@ -94,6 +63,26 @@ public class Game : MonoBehaviour
                 i = 10;
             }
         }
+    }
+
+    public void Timer()
+    {
+        if (deltaTime != System.DateTime.Now.Second)
+        {
+            deltaTime = System.DateTime.Now.Second;
+            tempTime++;
+        }
+
+        if (tempTime >= coolTime && uiManager.ingame)
+        {
+            CreateEnemy();
+            tempTime = 0;
+        }
+    }
+
+    public int GetTotalScore()
+    {
+        return totalScore;
     }
 
 }

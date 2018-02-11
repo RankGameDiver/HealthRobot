@@ -52,9 +52,9 @@ TagManager:
   - name: Sprite
     uniqueID: 3791134053
     locked: 0
-  - name: UI
-    uniqueID: 88643557
-    locked: 0
   - name: Character
     uniqueID: 1936242269
+    locked: 0
+  - name: UI
+    uniqueID: 88643557
     locked: 0

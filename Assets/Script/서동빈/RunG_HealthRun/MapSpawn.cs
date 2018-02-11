@@ -4,26 +4,16 @@ using UnityEngine;
 
 public class MapSpawn : MonoBehaviour {
 
-    public GameObject bgIndex;
-    public GameObject bgObj;
-    public GameObject[] patternIndex;
+    [SerializeField]
+    RunGameManager rGM;
 
     public void Initialize()
     {
-        GameObject obj = Instantiate(bgObj);
-        MapSpawn mapSpawnObj = obj.GetComponent<MapSpawn>();
-
-        obj.GetComponent<MoveObject>().player = gameObject.GetComponent<MoveObject>().player;
-        mapSpawnObj.bgIndex = bgIndex;
-        mapSpawnObj.bgObj = bgObj;
-        obj.transform.parent = bgIndex.transform;
-        obj.transform.localPosition = new Vector3(transform.position.x + 102, -1.6f, 0);
-        obj.name = "bg";
-        Destroy(gameObject);
-
-        GameObject obj2 = Instantiate(patternIndex[Random.Range(0, patternIndex.Length)]);
-        obj2.transform.parent = transform;
-        obj2.transform.localPosition = Vector3.zero;
+        transform.localPosition = new Vector3(transform.position.x + 102, -1.6f, 0);
+        Destroy(transform.GetChild(0).gameObject);
+        Transform pattern = rGM.GetPattern().transform;
+        pattern.parent = transform;
+        pattern.localPosition = new Vector3(0, 0);
     }
 
     // Use this for initialization
@@ -31,7 +21,7 @@ public class MapSpawn : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
 		if(transform.position.x < -25.5f)
         {
             Initialize();

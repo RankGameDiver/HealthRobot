@@ -12,6 +12,7 @@ public class RunPlayer : MonoBehaviour {
 
     public float jump;
     public float speed;
+    public GameObject bodyImage;
 
 	// Use this for initialization
 	void Start () {
@@ -40,7 +41,7 @@ public class RunPlayer : MonoBehaviour {
     {
         if (jumpCnt == 2)
         {
-            m_animator.PlayInFixedTime("Slid");
+            m_animator.PlayInFixedTime("Slide");
         }
     }
 
@@ -81,6 +82,8 @@ public class RunPlayer : MonoBehaviour {
     IEnumerator UnHitTime()
     {
         int countTime = 0;
+
+        //for(int)
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         while(countTime < 10)

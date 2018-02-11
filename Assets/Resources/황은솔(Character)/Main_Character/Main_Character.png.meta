@@ -1,35 +1,35 @@
 fileFormatVersion: 2
 guid: dbe0f74510779b04c9b3132492677fcf
-timeCreated: 1517859939
+timeCreated: 1517965538
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Main_Character_0
-    21300002: Main_Character_1
+    21300000: Hair_Man_1
+    21300002: Hair_Man_2
     21300004: Main_Character_2
-    21300006: Main_Character_3
-    21300008: Main_Character_4
+    21300006: Hair_Girl_1
+    21300008: Body
     21300010: Main_Character_5
-    21300012: Main_Character_6
-    21300014: Main_Character_7
-    21300016: Main_Character_8
-    21300018: Main_Character_9
-    21300020: Main_Character_10
-    21300022: Main_Character_11
+    21300012: Face_Smile
+    21300014: Back_Arm
+    21300016: Back_Arm_Cloth
+    21300018: Front_Arm
+    21300020: Front_Arm_Cloth
+    21300022: Face_1
     21300024: Main_Character_12
-    21300026: Main_Character_13
-    21300028: Main_Character_14
+    21300026: Body_Cloth
+    21300028: Face_2
     21300030: Main_Character_15
     21300032: Main_Character_16
     21300034: Main_Character_17
     21300036: Main_Character_18
-    21300038: Main_Character_19
-    21300040: Main_Character_20
-    21300042: Main_Character_21
-    21300044: Main_Character_22
-    21300046: Main_Character_23
-    21300048: Main_Character_24
-    21300050: Main_Character_25
+    21300038: Face_Sad
+    21300040: Front_Shoes
+    21300042: Front_Leg
+    21300044: Front_Leg_Cloth
+    21300046: Back_Shose
+    21300048: Back_Leg
+    21300050: Back_Leg_Cloth
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -156,365 +156,267 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Main_Character_0
+      name: Hair_Man_1
       rect:
         serializedVersion: 2
-        x: 184
-        y: 654
-        width: 160
-        height: 155
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 179
+        y: 649
+        width: 170
+        height: 165
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999997}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_1
+      name: Hair_Man_2
       rect:
         serializedVersion: 2
-        x: 411
-        y: 652
-        width: 151
-        height: 155
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 406
+        y: 647
+        width: 161
+        height: 165
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999997}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_2
+      name: Hair_Girl_1
       rect:
         serializedVersion: 2
-        x: 564
-        y: 748
-        width: 4
-        height: 4
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 633
+        y: 637
+        width: 172
+        height: 172
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_3
+      name: Body
       rect:
         serializedVersion: 2
-        x: 638
-        y: 642
-        width: 162
-        height: 162
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 192.2733
+        y: 329.1155
+        width: 152.4452
+        height: 283.8845
+      alignment: 9
+      pivot: {x: 0.32824755, y: 0.117014915}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_4
+      name: Face_Smile
       rect:
         serializedVersion: 2
-        x: 200
-        y: 335
-        width: 132
-        height: 273
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 505
+        y: 477
+        width: 70
+        height: 94
+      alignment: 9
+      pivot: {x: 0.42857143, y: 0.47872338}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_5
+      name: Back_Arm
       rect:
         serializedVersion: 2
-        x: 407
-        y: 545
-        width: 29
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 632.9365
+        y: 385
+        width: 64.06348
+        height: 176.30676
+      alignment: 9
+      pivot: {x: 0.42963138, y: 0.8312985}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_6
+      name: Back_Arm_Cloth
       rect:
         serializedVersion: 2
-        x: 513
-        y: 515
-        width: 50
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 711.09717
+        y: 409
+        width: 69.05023
+        height: 161
+      alignment: 9
+      pivot: {x: 0.47650573, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_7
+      name: Front_Arm
       rect:
         serializedVersion: 2
-        x: 640
-        y: 390
-        width: 52
-        height: 166
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_8
-      rect:
-        serializedVersion: 2
-        x: 718
-        y: 414
-        width: 54
-        height: 151
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_9
-      rect:
-        serializedVersion: 2
-        x: 829
-        y: 391
-        width: 51
-        height: 166
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_10
-      rect:
-        serializedVersion: 2
-        x: 913
-        y: 415
-        width: 53
-        height: 151
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_11
-      rect:
-        serializedVersion: 2
-        x: 407
-        y: 498
-        width: 30
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_12
-      rect:
-        serializedVersion: 2
-        x: 536
-        y: 484
-        width: 34
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_13
-      rect:
-        serializedVersion: 2
-        x: 34
-        y: 319
-        width: 106
-        height: 158
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_14
-      rect:
-        serializedVersion: 2
-        x: 405
-        y: 438
-        width: 29
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_15
-      rect:
-        serializedVersion: 2
-        x: 533
-        y: 424
-        width: 29
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_16
-      rect:
-        serializedVersion: 2
-        x: 536
-        y: 434
-        width: 24
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_17
-      rect:
-        serializedVersion: 2
-        x: 404
-        y: 390
-        width: 32
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_18
-      rect:
-        serializedVersion: 2
-        x: 529
-        y: 396
-        width: 16
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_19
-      rect:
-        serializedVersion: 2
-        x: 540
+        x: 821.7486
         y: 386
-        width: 26
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64.898315
+        height: 177.55371
+      alignment: 9
+      pivot: {x: 0.45588052, y: 0.8254603}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_20
+      name: Front_Arm_Cloth
       rect:
         serializedVersion: 2
-        x: 59
+        x: 905.10144
+        y: 410
+        width: 68.797
+        height: 161
+      alignment: 9
+      pivot: {x: 0.5000009, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Face_1
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 491
+        width: 46
+        height: 75
+      alignment: 9
+      pivot: {x: 0.15217392, y: 0.41333336}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Body_Cloth
+      rect:
+        serializedVersion: 2
+        x: 28.300003
+        y: 313.07217
+        width: 117.83441
+        height: 168.9278
+      alignment: 9
+      pivot: {x: 0.49815664, y: 0.5027463}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Face_2
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 383
+        width: 49
+        height: 75.99997
+      alignment: 9
+      pivot: {x: 0.2244898, y: 0.4210528}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Face_Sad
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 378
+        width: 52
+        height: 83.99997
+      alignment: 9
+      pivot: {x: 0.26923078, y: 0.44047633}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Front_Shoes
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 58
+        width: 98
+        height: 60.000008
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4999999}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Front_Leg
+      rect:
+        serializedVersion: 2
+        x: 206.3151
         y: 63
-        width: 88
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 92.72623
+        height: 222
+      alignment: 9
+      pivot: {x: 0.31570506, y: 0.8636159}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_21
+      name: Front_Leg_Cloth
       rect:
         serializedVersion: 2
-        x: 214
-        y: 68
-        width: 78
-        height: 212
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 323.965
+        y: 95
+        width: 79.26785
+        height: 200
+      alignment: 9
+      pivot: {x: 0.4861366, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_22
+      name: Back_Shose
       rect:
         serializedVersion: 2
-        x: 330
-        y: 100
-        width: 65
-        height: 190
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 462
+        y: 58
+        width: 100
+        height: 60.000008
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4999999}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_23
+      name: Back_Leg
       rect:
         serializedVersion: 2
-        x: 468
-        y: 63
-        width: 90
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 606.7307
+        y: 62.599365
+        width: 95.73724
+        height: 222.80127
+      alignment: 9
+      pivot: {x: 0.33059198, y: 0.8409959}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Main_Character_24
+      name: Back_Leg_Cloth
       rect:
         serializedVersion: 2
-        x: 616
-        y: 68
-        width: 78
-        height: 212
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Main_Character_25
-      rect:
-        serializedVersion: 2
-        x: 742
-        y: 100
-        width: 65
-        height: 190
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 734.3546
+        y: 95
+        width: 80.90735
+        height: 200
+      alignment: 9
+      pivot: {x: 0.4961896, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -522,6 +424,6 @@ TextureImporter:
     outline: []
     physicsShape: []
   spritePackingTag: 
-  userData: 
+  userData: 99481389112234
   assetBundleName: 
   assetBundleVariant: 

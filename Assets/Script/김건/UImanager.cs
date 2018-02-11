@@ -7,6 +7,7 @@ public class UImanager : MonoBehaviour
 {
     public GameObject title;
     private Image titleImg { get { return title.GetComponent<Image>(); } }
+    private Fade fade;
     public bool ingame;
 
     private Game game { get { return gameObject.GetComponent<Game>(); } }
@@ -15,14 +16,17 @@ public class UImanager : MonoBehaviour
 
     void Start()
     {
-        titleImg.color = new Color(titleImg.color.r, titleImg.color.g, titleImg.color.b, 1.0f);
+        fade = gameObject.AddComponent<Fade>();
+        fade.AlphaSet(titleImg, 1.0f);
         ingame = false;
     }
 
     void Update()
     {
-        if (titleImg.color.a > 0)
-            titleImg.color = new Color(titleImg.color.r, titleImg.color.g, titleImg.color.b, titleImg.color.a - 0.01f);
+        if (fade.GetActive())
+        {
+            fade.FadeOut(titleImg);
+        }
         else
         {
             ingame = true;

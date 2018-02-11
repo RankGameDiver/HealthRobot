@@ -23,6 +23,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
     public int PerHPScore = 30;     // 체력당 스코우 변수
     private int Score = 0;          // 게임 스코어
 
+    public Sprite DistroyHp;
     public GameObject Title_Background;
     public GameObject obj_Title;
     public GameObject obj_HP;
@@ -97,7 +98,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
         }
         else                 // 주사기와 팔이 빗나갔을시
         {
-            Destroy(obj_HP.transform.parent.transform.GetChild(HP - 1).gameObject);
+            obj_HP.transform.parent.transform.GetChild(HP - 1).GetComponent<Image>().sprite = DistroyHp;
             HP--;
             if(HP == 0)     // 체력이 0이라면 게임 종료
             {
@@ -135,7 +136,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
         {
             GameObject newHp = Instantiate(obj_HP);
             newHp.transform.SetParent(obj_HP.transform.parent.transform);
-            newHp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            newHp.transform.localScale = new Vector3(1.5f, 1.5f, 1.0f);
             yield return null;
         }
     }
