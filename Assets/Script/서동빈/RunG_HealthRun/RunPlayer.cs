@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class RunPlayer : MonoBehaviour {
 
     Rigidbody2D m_rigid;
@@ -10,9 +11,11 @@ public class RunPlayer : MonoBehaviour {
     private int jumpCnt;
     private bool isUnHitTime = false;
 
+    public RunGameManager r_GM;
     public float jump;
     public float speed;
     public GameObject bodyImage;
+    public int gettingScore;
 
 	// Use this for initialization
 	void Start () {
@@ -75,6 +78,8 @@ public class RunPlayer : MonoBehaviour {
 
         if (collision.gameObject.tag == "Score")
         {
+            int temp_Score = System.Convert.ToInt32(r_GM.t_scoreTex.text) + gettingScore;
+            r_GM.t_scoreTex.text = temp_Score.ToString();
             Destroy(collision.gameObject);
         }
     }

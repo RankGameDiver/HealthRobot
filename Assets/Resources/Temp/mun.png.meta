@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 9e75885f72d30774e85c2036e809e3c2
-timeCreated: 1517187449
+timeCreated: 1518181736
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,10 @@ TextureImporter:
     21300002: mun_2x2_2
     21300004: mun_2x2_3
     21300006: mun_2x2_4
+    21300008: mun_0
+    21300010: mun_1
+    21300012: mun_2
+    21300014: mun_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -81,6 +85,46 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: 47
+    textureCompression: 1
+    compressionQuality: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -94,13 +138,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mun_2x2_1
+      name: mun_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 109.5
-        width: 106.5
-        height: 109.5
+        x: 1
+        y: 109
+        width: 106
+        height: 109
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -108,13 +152,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: mun_2x2_2
+      name: mun_1
       rect:
         serializedVersion: 2
-        x: 106
-        y: 109.5
-        width: 106.5
-        height: 109.5
+        x: 107
+        y: 109
+        width: 106
+        height: 109
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -122,13 +166,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: mun_2x2_3
+      name: mun_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0.5
-        width: 106.5
-        height: 109.5
+        x: 1
+        y: 0
+        width: 106
+        height: 109
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,13 +180,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: mun_2x2_4
+      name: mun_3
       rect:
         serializedVersion: 2
-        x: 106
-        y: 0.5
-        width: 106.5
-        height: 109.5
+        x: 107
+        y: 0
+        width: 106
+        height: 109
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

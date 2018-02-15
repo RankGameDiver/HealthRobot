@@ -10,7 +10,7 @@ public class UImanager : MonoBehaviour
     private Fade fade;
     public bool ingame;
 
-    private Game game { get { return gameObject.GetComponent<Game>(); } }
+    private M_VirusGame game { get { return gameObject.GetComponent<M_VirusGame>(); } }
 
     private int deltaTime;
 

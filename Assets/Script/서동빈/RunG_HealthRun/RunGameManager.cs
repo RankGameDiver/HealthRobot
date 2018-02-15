@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RunGameManager : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class RunGameManager : MonoBehaviour {
     public GameObject[] pattern;
     public GameObject bgIndex;
     public GameObject bgObj;
+    public Text t_scoreTex;
+
 
 	// Use this for initialization
 	void Start () {

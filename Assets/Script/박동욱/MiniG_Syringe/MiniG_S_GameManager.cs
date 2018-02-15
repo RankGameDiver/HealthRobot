@@ -107,7 +107,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
             }
         }
 
-        while (s_Syringe.transform.position.y <= 7.5f)      // 주사기가 Y좌표까지 올라갈때까지 실행
+        while (s_Syringe.transform.position.y <= 8.0f)      // 주사기가 Y좌표까지 올라갈때까지 실행
         {
             s_Syringe.transform.position = s_Syringe.transform.position + new Vector3(0, SyringeSpeed * Time.deltaTime);
             yield return null;
