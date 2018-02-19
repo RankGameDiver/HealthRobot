@@ -10,14 +10,13 @@ public class M_VirusGame: MonoBehaviour
     [SerializeField]
     private float timer; // 미니게임의 타이머
     public GameObject[] enemy;
+    public int virusLife;
 
     private UImanager uiManager { get { return gameObject.GetComponent<UImanager>(); } }
     private RayCheck rayCheck { get { return gameObject.GetComponent<RayCheck>(); } }
 
     public Sprite[] virusImg;
-
-    private Vector2 touchPos;
-    private Touch touch;
+    public Sprite[] virusDieImg;
 
     private int deltaTime;
     public int coolTime; // Enemy 생성 대기시간
@@ -34,7 +33,8 @@ public class M_VirusGame: MonoBehaviour
             if (s_enemy.life <= 1)
             {
                 totalScore += s_enemy.score;
-                g_enemy.SetActive(false);
+                StartCoroutine(s_enemy.VirusDead());
+                //g_enemy.SetActive(false);
             }
             else
             {
@@ -53,7 +53,7 @@ public class M_VirusGame: MonoBehaviour
             else
             {
                 Enemy s_enemy = enemy[i].GetComponent<Enemy>();
-                s_enemy.life = 1;
+                s_enemy.life = virusLife;
                 s_enemy.score = 100;
                 s_enemy.enemyKind = Random.Range(0, 4);
                 enemy[i].GetComponent<SpriteRenderer>().sprite = virusImg[s_enemy.enemyKind];

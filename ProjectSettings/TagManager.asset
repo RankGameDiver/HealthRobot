@@ -9,6 +9,7 @@ TagManager:
   - Board
   - Puzzle
   - Score
+  - Heart
   layers:
   - Default
   - TransparentFX
@@ -60,4 +61,7 @@ TagManager:
     locked: 0
   - name: Particle
     uniqueID: 183430473
+    locked: 0
+  - name: Top
+    uniqueID: 3437013515
     locked: 0

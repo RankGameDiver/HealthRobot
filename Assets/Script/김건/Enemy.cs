@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public int enemyKind; // 바이러스 종류
 
     private BoxCollider2D boxCol { get{ return gameObject.GetComponent<BoxCollider2D>(); } }
+    private M_VirusGame game { get { return FindObjectOfType<M_VirusGame>(); } }
 
     public void ColliderReset(int temp)
     {
@@ -27,5 +28,13 @@ public class Enemy : MonoBehaviour
                 boxCol.size = new Vector2(4, 4);
                 break;
         }       
+    }
+
+    public IEnumerator VirusDead()
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = game.virusDieImg[enemyKind];
+        yield return new WaitForSeconds(0.2f);
+        gameObject.SetActive(false);
+        yield break;
     }
 }

@@ -17,11 +17,16 @@ public class RunPlayer : MonoBehaviour {
     public GameObject bodyImage;
     public int gettingScore;
 
+    public int maxLife;
+    public int currentLife;
+
 	// Use this for initialization
 	void Start () {
         m_rigid = GetComponent<Rigidbody2D>();
         m_animator = GetComponent<Animator>();
         jumpCnt = 2;
+
+        currentLife = maxLife;
     }
 
     // Update is called once per frame
@@ -31,20 +36,26 @@ public class RunPlayer : MonoBehaviour {
 
     public void Jump()
     {
-        if (jumpCnt > 0)
+        if (r_GM.isPlaying)
         {
-            m_rigid.velocity = Vector2.zero;
-            m_rigid.AddForce(new Vector2(0, jump));
-            m_animator.PlayInFixedTime("Jump", 0, 0);
-            jumpCnt--;
+            if (jumpCnt > 0)
+            {
+                m_rigid.velocity = Vector2.zero;
+                m_rigid.AddForce(new Vector2(0, jump));
+                m_animator.PlayInFixedTime("Jump", 0, 0);
+                jumpCnt--;
+            }
         }
     }
 
     public void Slide()
     {
-        if (jumpCnt == 2)
+        if (r_GM.isPlaying)
         {
-            m_animator.PlayInFixedTime("Slide");
+            if (jumpCnt == 2)
+            {
+                m_animator.PlayInFixedTime("Slide");
+            }
         }
     }
 
@@ -73,7 +84,9 @@ public class RunPlayer : MonoBehaviour {
         if(collision.gameObject.tag == "Enemy" && !isUnHitTime)
         {
             isUnHitTime = true;
-            StartCoroutine(UnHitTime());
+            r_GM.SubHeart();
+            //collision.GetComponent<Rigidbody2D>().AddForce(new Vector2(3000, 3000));
+            //StartCoroutine(UnHitTime());
         }
 
         if (collision.gameObject.tag == "Score")
@@ -81,6 +94,15 @@ public class RunPlayer : MonoBehaviour {
             int temp_Score = System.Convert.ToInt32(r_GM.t_scoreTex.text) + gettingScore;
             r_GM.t_scoreTex.text = temp_Score.ToString();
             Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "Score")
+        {
+            if (currentLife < maxLife)
+            {
+                currentLife++;
+                r_GM.AddHeart();
+            }
         }
     }
 

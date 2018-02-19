@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/MiniG_Virus.unity
     guid: 28c7ef6cb805e0f46a8f72715fb31d77
+  - enabled: 1
+    path: Assets/Scene/Temp.unity
+    guid: e35da56394e83f94180601ca1648b596

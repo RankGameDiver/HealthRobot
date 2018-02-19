@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class ButtonFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public enum BUTTON_KIND
+    {
+        SLIDE_BTN, STOP_BTN
+    }
 
 
-
+    public BUTTON_KIND buttonKind;
     public RunPlayer player;
 
     bool buttonDown = false;
@@ -21,8 +26,13 @@ public class ButtonFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Update is called once per frame
     void Update()
     {
-        if (buttonDown) player.Slide();
-        else player.Stand();
+        switch(buttonKind)
+        {
+            case BUTTON_KIND.SLIDE_BTN:
+                if (buttonDown) player.Slide();
+                else player.Stand();
+                break;
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -33,5 +43,10 @@ public class ButtonFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         buttonDown = false;
+    }
+
+    public void ChangeScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
