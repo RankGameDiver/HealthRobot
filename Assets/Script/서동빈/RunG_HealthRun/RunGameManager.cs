@@ -14,11 +14,13 @@ public class RunGameManager : MonoBehaviour {
     public Image[] hpObj;
     public Sprite on_hpSprite;
     public Sprite off_hpSprite;
+    public GameObject[] healthTimeObj;
 
     public bool isPlaying = true;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
 		for(int i =0; i < player.maxLife; i++)
         {
             hpObj[i].gameObject.SetActive(true);
@@ -32,8 +34,16 @@ public class RunGameManager : MonoBehaviour {
 	}
 
     public GameObject GetPattern()
-    {
-        GameObject obj = pattern[Random.Range(0, pattern.Length - 1)];
+    { 
+        int tempPattern = Random.Range(0, pattern.Length - 2);
+        GameObject obj = pattern[tempPattern];
+
+        Debug.Log(tempPattern);
+
+        GameObject tempObj = pattern[tempPattern];
+        pattern[tempPattern] = pattern[pattern.Length - 1];
+        pattern[pattern.Length - 1] = tempObj;
+
         return Instantiate(obj);
     }
 
@@ -72,6 +82,27 @@ public class RunGameManager : MonoBehaviour {
                 hpObj[i].sprite = off_hpSprite;
                 return;
             }
+        }
+    }
+
+    public void OnHealthTimeObj(int num)
+    {
+        healthTimeObj[num].SetActive(true);
+    }
+
+    public void OffHealthTimeObj(int num = 7)
+    {
+        if(num == 7)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                healthTimeObj[i].SetActive(false);
+            }
+        }
+
+        else
+        {
+            healthTimeObj[num].SetActive(false);
         }
     }
 

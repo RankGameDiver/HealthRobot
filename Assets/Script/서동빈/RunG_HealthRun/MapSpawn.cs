@@ -18,6 +18,9 @@ public class MapSpawn : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Transform pattern = rGM.GetPattern().transform;
+        pattern.parent = transform;
+        pattern.localPosition = new Vector3(0, 0);
     }
 
     // Update is called once per frame

@@ -20,6 +20,9 @@ public class RunPlayer : MonoBehaviour {
     public int maxLife;
     public int currentLife;
 
+    public bool[] healthTime = new bool[6];
+    public bool feverTime = false;
+
 	// Use this for initialization
 	void Start () {
         m_rigid = GetComponent<Rigidbody2D>();
@@ -31,7 +34,7 @@ public class RunPlayer : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+
 	}
 
     public void Jump()
@@ -91,6 +94,45 @@ public class RunPlayer : MonoBehaviour {
 
         if (collision.gameObject.tag == "Score")
         {
+            switch(collision.gameObject.name)
+            {
+                case "H1":
+                    healthTime[0] = true;
+                    r_GM.OnHealthTimeObj(0);
+                    break;
+
+                case "E":
+                    healthTime[1] = true;
+                    r_GM.OnHealthTimeObj(1);
+                    break;
+
+                case "A":
+                    healthTime[2] = true;
+                    r_GM.OnHealthTimeObj(2);
+                    break;
+
+                case "L":
+                    healthTime[3] = true;
+                    r_GM.OnHealthTimeObj(3);
+                    break;
+
+                case "T":
+                    healthTime[4] = true;
+                    r_GM.OnHealthTimeObj(4);
+                    break;
+
+                case "H2":
+                    healthTime[5] = true;
+                    r_GM.OnHealthTimeObj(5);
+                    break;
+            }
+
+            if (ChecAllHealth() && !feverTime)
+            {
+                feverTime = true;
+                StartCoroutine(PlayerGetBigger());
+            }
+
             int temp_Score = System.Convert.ToInt32(r_GM.t_scoreTex.text) + gettingScore;
             r_GM.t_scoreTex.text = temp_Score.ToString();
             Destroy(collision.gameObject);
@@ -130,5 +172,61 @@ public class RunPlayer : MonoBehaviour {
         isUnHitTime = false;
 
         yield return false;
+    }
+
+    IEnumerator PlayerGetBigger()
+    {
+        yield return new WaitForSeconds(0.01f);
+
+        transform.localScale += new Vector3(0.1f, 0.1f);
+
+        if (transform.localScale.x >= 1.5f)
+        {
+            transform.localScale = new Vector3(1.5f, 1.5f);
+            yield return new WaitForSeconds(5f);
+            StartCoroutine(PlayerGetSmaller());
+        }
+        else
+        {
+            StartCoroutine(PlayerGetBigger());
+        }
+
+
+        yield return false;
+    }
+
+    IEnumerator PlayerGetSmaller()
+    {
+        yield return new WaitForSeconds(0.01f);
+
+        transform.localScale -= new Vector3(0.1f, 0.1f);
+
+        if (transform.localScale.x <= 0.7f)
+        {
+            transform.localScale = new Vector3(0.7f, 0.7f);
+            feverTime = false;
+            for (int i = 0; i < healthTime.Length; i++)
+            {
+                healthTime[i] = false;
+            }
+            r_GM.OffHealthTimeObj();
+        }
+        else
+        {
+            StartCoroutine(PlayerGetSmaller());
+        }
+
+
+        yield return false;
+    }
+
+    public bool ChecAllHealth()
+    {
+        for(int i = 0; i < healthTime.Length; i++)
+        {
+            if (!healthTime[i]) return false;
+        }
+
+        return true;
     }
 }

@@ -12,7 +12,8 @@ enum GameProgress   // 게임의 진행상태 확인
 
 public class MiniG_S_GameManager : MonoBehaviour {
 
-    private float ArmSpeed;     // 팔의 좌우 이동속도를 조절하는 변수
+    private float VesselSpeed;     // 팔의 좌우 이동속도를 조절하는 변수
+    private float ArmSpeed;
     private float SyringeSpeed; // 주사기의 상하 이동속도를 조절하는 변수
     private int count = 0;      // 팔이 좌우를 몇번 왔다갔다 했는지 카운트하는 변수
 
@@ -27,11 +28,15 @@ public class MiniG_S_GameManager : MonoBehaviour {
     public GameObject Title_Background;
     public GameObject obj_Title;
     public GameObject obj_HP;
+    public GameObject obj_Vessel;
     public GameObject obj_Arm;
     public GameObject obj_Syringe;
     public GameObject Text_Background;
     public Text txt_Score;
+    public Animator anim_Syringe;
+    public Animator anim_Effect;
 
+    private Mini_S_ObjectManager s_Vessel;
     private Mini_S_ObjectManager s_Arm;
     private Mini_S_ObjectManager s_Syringe;
 
@@ -40,8 +45,10 @@ public class MiniG_S_GameManager : MonoBehaviour {
     {
         StartCoroutine(CreationHP());       // HP오브젝트 설정해놓은 HP만큼 생성
         StartCoroutine(TitleTransform());   // 타이틀 조정
+        s_Vessel = obj_Vessel.GetComponent<Mini_S_ObjectManager>();
         s_Arm = obj_Arm.GetComponent<Mini_S_ObjectManager>();
         s_Syringe = obj_Syringe.GetComponent<Mini_S_ObjectManager>();
+        VesselSpeed = s_Vessel.Speed;
         ArmSpeed = s_Arm.Speed;
         SyringeSpeed = s_Syringe.Speed;
     }
@@ -53,15 +60,24 @@ public class MiniG_S_GameManager : MonoBehaviour {
         {
             case GameProgress.Start:
                 {
-                    if (s_Arm.transform.position.x <= -3.1f || obj_Arm.transform.position.x >= 3.75f)   // 팔 움직임 좌우 조작
+                    if (s_Vessel.transform.position.x <= -3.1f || s_Vessel.transform.position.x >= 3.75f)   // 팔 움직임 좌우 조작
+                    {
+                        VesselSpeed *= -1;
+                        count++;
+                        if (count % 2 == 0)     // 팔이 좌우로 한번 왔다갔다하면 스피드 증가
+                            VesselSpeed += 1;
+                    }
+
+                    s_Vessel.transform.Translate(new Vector3(VesselSpeed * Time.deltaTime, 0, 0));  // 팔 이동
+
+                    if (s_Arm.transform.position.x <= -3.1f || s_Arm.transform.position.x >= 3.75f)   // 팔 움직임 좌우 조작
                     {
                         ArmSpeed *= -1;
-                        count++;
                         if (count % 2 == 0)     // 팔이 좌우로 한번 왔다갔다하면 스피드 증가
                             ArmSpeed += 1;
                     }
 
-                    s_Arm.transform.Translate(new Vector3(ArmSpeed * Time.deltaTime, 0, 0));  // 팔 이동
+                    s_Arm.transform.Translate(new Vector3(VesselSpeed * Time.deltaTime, 0, 0));  // 팔 이동
 
                     if (Input.GetMouseButtonDown(0) && !Moving) // 화면 클릭시 주사기가 내려옴
                     {
@@ -89,18 +105,34 @@ public class MiniG_S_GameManager : MonoBehaviour {
             yield return null;
         }
 
-        if (s_Arm.Collision) // 주사기와 팔이 충돌했을시
+        if (s_Vessel.Collision) // 주사기와 혈관이 충돌했을시
         {
-            ArmSpeed = 0;
+            VesselSpeed = 0;
             Score = HP * PerHPScore;
+            anim_Syringe.Play("Syringes");
+            yield return new WaitForSeconds(1.0f);
             gp_GameProgress = GameProgress.Over;
-            yield return new WaitForSeconds(2.0f);
         }
-        else                 // 주사기와 팔이 빗나갔을시
+        else if (s_Arm.Collision) // 주사기와 팔이 충돌했을시
         {
             obj_HP.transform.parent.transform.GetChild(HP - 1).GetComponent<Image>().sprite = DistroyHp;
             HP--;
-            if(HP == 0)     // 체력이 0이라면 게임 종료
+            anim_Syringe.Play("Syringes");
+            yield return new WaitForSeconds(1.0f);
+            if (HP == 0)     // 체력이 0이라면 게임 종료
+            {
+                Score = 0;
+                gp_GameProgress = GameProgress.Over;
+            }
+        }
+        else                 // 주사기가 아무것도 충돌 안했을 시
+        {
+            obj_HP.transform.parent.transform.GetChild(HP - 1).GetComponent<Image>().sprite = DistroyHp;
+            HP--;
+            anim_Syringe.Play("Syringes");
+            anim_Effect.Play("Effects");
+            yield return new WaitForSeconds(1.0f);
+            if (HP == 0)     // 체력이 0이라면 게임 종료
             {
                 Score = 0;
                 gp_GameProgress = GameProgress.Over;
