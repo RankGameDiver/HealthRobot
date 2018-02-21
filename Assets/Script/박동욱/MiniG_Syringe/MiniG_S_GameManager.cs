@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum GameProgress   // 게임의 진행상태 확인
+enum S_GameProgress   // 게임의 진행상태 확인
 {
     Start,
     Over,
@@ -16,8 +16,9 @@ public class MiniG_S_GameManager : MonoBehaviour {
     private float ArmSpeed;
     private float SyringeSpeed; // 주사기의 상하 이동속도를 조절하는 변수
     private int count = 0;      // 팔이 좌우를 몇번 왔다갔다 했는지 카운트하는 변수
+    private float Rand;
 
-    private GameProgress gp_GameProgress = GameProgress.None;     // 타이틀이 사라지고 게임 시작했는지 확인하는 변수
+    private S_GameProgress gp_GameProgress = S_GameProgress.None;     // 타이틀이 사라지고 게임 시작했는지 확인하는 변수
     private bool Moving = false;        // 주사기가 움직이고 있는지 확인하는 변수
     
     public int HP = 1;              // 체력 변수
@@ -31,6 +32,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
     public GameObject obj_Vessel;
     public GameObject obj_Arm;
     public GameObject obj_Syringe;
+    public GameObject obj_Band;
     public GameObject Text_Background;
     public Text txt_Score;
     public Animator anim_Syringe;
@@ -58,7 +60,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
     {
         switch(gp_GameProgress)     // 게임의 진행상태에 따라 게임 상태를 변경
         {
-            case GameProgress.Start:
+            case S_GameProgress.Start:
                 {
                     if (s_Vessel.transform.position.x <= -3.1f || s_Vessel.transform.position.x >= 3.75f)   // 팔 움직임 좌우 조작
                     {
@@ -86,20 +88,21 @@ public class MiniG_S_GameManager : MonoBehaviour {
                     }
                     break;
                 }
-            case GameProgress.Over:
+            case S_GameProgress.Over:
                 {
                     txt_Score.text = Score.ToString();
                     Text_Background.SetActive(true);
                     break;
                 }
-            case GameProgress.None:     // 여기에서 할 일은 Start함수에 넣자
+            case S_GameProgress.None:     // 여기에서 할 일은 Start함수에 넣자
                 {   break;  }
         }
     }
 
     private IEnumerator SyringsMove()
     {
-        while (s_Syringe.transform.position.y >= 2.5)       // 주사기가 Y좌표까지 내려갈때까지 실행
+        Rand = Random.Range(-1.0f, 1.0f);
+        while (s_Syringe.transform.position.y >= 2.5 + Rand)       // 주사기가 Y좌표까지 내려갈때까지 실행
         {
             s_Syringe.transform.position = s_Syringe.transform.position + new Vector3(0, -SyringeSpeed * Time.deltaTime);
             yield return null;
@@ -111,31 +114,35 @@ public class MiniG_S_GameManager : MonoBehaviour {
             Score = HP * PerHPScore;
             anim_Syringe.Play("Syringes");
             yield return new WaitForSeconds(1.0f);
-            gp_GameProgress = GameProgress.Over;
+            gp_GameProgress = S_GameProgress.Over;
         }
         else if (s_Arm.Collision) // 주사기와 팔이 충돌했을시
         {
             obj_HP.transform.parent.transform.GetChild(HP - 1).GetComponent<Image>().sprite = DistroyHp;
             HP--;
-            anim_Syringe.Play("Syringes");
-            yield return new WaitForSeconds(1.0f);
+            //anim_Syringe.Play("Syringes");
+            GameObject newBand = Instantiate(obj_Band);
+            newBand.transform.SetParent(obj_Vessel.transform);
+            newBand.transform.position = new Vector3(obj_Syringe.transform.position.x + 0.2f, obj_Syringe.transform.position.y - 2.3f, 1.0f);
+            yield return new WaitForSeconds(1.5f);
             if (HP == 0)     // 체력이 0이라면 게임 종료
             {
                 Score = 0;
-                gp_GameProgress = GameProgress.Over;
+                gp_GameProgress = S_GameProgress.Over;
             }
         }
         else                 // 주사기가 아무것도 충돌 안했을 시
         {
             obj_HP.transform.parent.transform.GetChild(HP - 1).GetComponent<Image>().sprite = DistroyHp;
             HP--;
+            Debug.Log(s_Syringe.transform.position.y);
             anim_Syringe.Play("Syringes");
             anim_Effect.Play("Effects");
             yield return new WaitForSeconds(1.0f);
             if (HP == 0)     // 체력이 0이라면 게임 종료
             {
                 Score = 0;
-                gp_GameProgress = GameProgress.Over;
+                gp_GameProgress = S_GameProgress.Over;
             }
         }
 
@@ -159,7 +166,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
         }
         Title_Background.SetActive(false);  // 있어도 그만 없어도 그만인 코드
         obj_Title.SetActive(false);         // 있어도 그만 없어도 그만인 코드
-        gp_GameProgress = GameProgress.Start;   // 게임이 시작됬다는걸 알려줌
+        gp_GameProgress = S_GameProgress.Start;   // 게임이 시작됬다는걸 알려줌
     }
 
     private IEnumerator CreationHP()
@@ -169,7 +176,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
             GameObject newHp = Instantiate(obj_HP);
             newHp.transform.SetParent(obj_HP.transform.parent.transform);
             newHp.transform.localScale = new Vector3(1.5f, 1.5f, 1.0f);
-            yield return null;
         }
+        yield return null;
     }
 }

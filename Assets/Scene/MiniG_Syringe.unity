@@ -298,7 +298,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.9789045, y: -0.5797149}
+  m_Offset: {x: 0.9789045, y: -0.4153036}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -309,7 +309,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6287794, y: 1.2135794}
+  m_Size: {x: 0.6287794, y: 2.9015357}
   m_EdgeRadius: 0
 --- !u!50 &327608256
 Rigidbody2D:
@@ -356,7 +356,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.9027715, y: -0.5755975}
+  m_Offset: {x: -0.9027715, y: -0.47147012}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -367,7 +367,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75195694, y: 1.2031512}
+  m_Size: {x: 0.75195694, y: 3.0116754}
   m_EdgeRadius: 0
 --- !u!1 &363077215
 GameObject:
@@ -562,7 +562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &427376159
 RectTransform:
   m_ObjectHideFlags: 0
@@ -760,7 +760,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -503833243
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 0f9d2e54079a9a645ac951a6dc366813, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -852,7 +852,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 1c85b7c303ad94b419c15980dbe4dc47, type: 3}
     m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
@@ -933,7 +933,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.108008444, y: 0.3960756}
+  m_Offset: {x: 0.108008444, y: 0.49472225}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -944,7 +944,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0004743, y: 1.2055857}
+  m_Size: {x: 1.0004743, y: 3.0031493}
   m_EdgeRadius: 0
 --- !u!50 &1069614708
 Rigidbody2D:
@@ -999,7 +999,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -503833243
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5a39b015d2171ef44b0175be4b9b4562, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1150,6 +1150,7 @@ MonoBehaviour:
   obj_Vessel: {fileID: 1069614705}
   obj_Arm: {fileID: 327608253}
   obj_Syringe: {fileID: 535267405}
+  obj_Band: {fileID: 1074067308562384, guid: 51aead9eba1c0614f899c0a5c74a7ed2, type: 2}
   Text_Background: {fileID: 85641601}
   txt_Score: {fileID: 668499645}
   anim_Syringe: {fileID: 535267410}
@@ -1295,7 +1296,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 1c85b7c303ad94b419c15980dbe4dc47, type: 3}
     m_FontSize: 200
     m_FontStyle: 0
     m_BestFit: 0

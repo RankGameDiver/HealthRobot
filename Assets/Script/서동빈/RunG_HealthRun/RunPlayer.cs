@@ -86,9 +86,12 @@ public class RunPlayer : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Enemy" && !isUnHitTime)
         {
-            isUnHitTime = true;
-            r_GM.SubHeart();
-            //collision.GetComponent<Rigidbody2D>().AddForce(new Vector2(3000, 3000));
+            if (feverTime) collision.GetComponent<Rigidbody2D>().AddForce(new Vector2(3000, 3000));
+            else
+            {
+                isUnHitTime = true;
+                r_GM.SubHeart();
+            }
             //StartCoroutine(UnHitTime());
         }
 

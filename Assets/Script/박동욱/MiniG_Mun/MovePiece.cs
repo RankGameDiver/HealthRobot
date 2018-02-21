@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class MovePiece : MonoBehaviour
 {
+    private StageManager StatusTransfer;
+
     public string pieceStatus = "idle";
 
     public Transform edgeParticles;
@@ -12,9 +14,11 @@ public class MovePiece : MonoBehaviour
 
     public string checkPlacement = "";
 
-    public float yDiff;
+    private void Awake()
+    {
+    }
 
-	void Start ()
+    void Start ()
     {
         gameObject.AddComponent<BoxCollider2D>();
     }
@@ -42,7 +46,7 @@ public class MovePiece : MonoBehaviour
         {
             collision.GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
-            GetComponent<Renderer>().sortingOrder = 0;
+            GetComponent<Renderer>().sortingOrder = 2;
             transform.position = collision.gameObject.transform.position;
             pieceStatus = "locked";
             Instantiate(edgeParticles, collision.gameObject.transform.position, edgeParticles.rotation);
@@ -57,6 +61,11 @@ public class MovePiece : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        GetComponent<SpriteRenderer>().color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+    }
+
     private void OnMouseDown()
     {
         checkPlacement = "n";
@@ -66,9 +75,14 @@ public class MovePiece : MonoBehaviour
 
     private void InvControl()
     {
-        if(Input.GetAxis("Mouse ScrollWheel") > 0)
+        if(Input.GetAxis("Mouse ScrollWheel") > 0 && pieceStatus != "locked")
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y - 2.4f);
+            transform.position = new Vector2(transform.position.x, transform.position.y - 1.0f);
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && pieceStatus != "locked")
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y + 1.0f);
         }
     }
 }

@@ -50,14 +50,12 @@ public class RunGameManager : MonoBehaviour {
     public void StopGame()
     {
         Time.timeScale = 0;
-        StartBtn.SetActive(true);
         isPlaying = false;
     }
 
     public void StartGame()
     {
         Time.timeScale = 1;
-        StartBtn.SetActive(false);
         isPlaying = true;
     }
 
