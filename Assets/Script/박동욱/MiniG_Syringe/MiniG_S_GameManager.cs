@@ -115,6 +115,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
         {
             VesselSpeed = 0;
             anim_Syringe.Play("Syringes");
+            obj_Syringe.GetComponent<AudioManager>().PlaySound(1);
             yield return new WaitForSeconds(1.0f);
             gp_GameProgress = S_GameProgress.Over;
         }
@@ -122,7 +123,6 @@ public class MiniG_S_GameManager : MonoBehaviour {
         {
             obj_HP.transform.parent.transform.GetChild(HP - 1).GetComponent<Image>().sprite = DistroyHp;
             HP--;
-            //anim_Syringe.Play("Syringes");
             GameObject newBand = Instantiate(obj_Band);
             newBand.transform.SetParent(obj_Vessel.transform);
             newBand.transform.position = new Vector3(obj_Syringe.transform.position.x + 0.2f, obj_Syringe.transform.position.y - 2.3f, 1.0f);
@@ -136,9 +136,9 @@ public class MiniG_S_GameManager : MonoBehaviour {
         {
             obj_HP.transform.parent.transform.GetChild(HP - 1).GetComponent<Image>().sprite = DistroyHp;
             HP--;
-            Debug.Log(s_Syringe.transform.position.y);
             anim_Syringe.Play("Syringes");
             anim_Effect.Play("Effects");
+            obj_Syringe.GetComponent<AudioManager>().PlaySound(0);
             yield return new WaitForSeconds(1.0f);
             if (HP == 0)     // 체력이 0이라면 게임 종료
             {

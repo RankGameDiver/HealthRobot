@@ -792,8 +792,9 @@ GameObject:
   - component: {fileID: 535267408}
   - component: {fileID: 535267407}
   - component: {fileID: 535267406}
-  - component: {fileID: 535267409}
   - component: {fileID: 535267410}
+  - component: {fileID: 535267409}
+  - component: {fileID: 535267411}
   m_Layer: 0
   m_Name: Syringe
   m_TagString: Untagged
@@ -914,6 +915,25 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &535267411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 535267405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e154068df071e438a20fea9261af12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_audioSrc: {fileID: 0}
+  m_audioClip:
+  - {fileID: 8300000, guid: 8fffc8a3541643246a0c855237092aac, type: 3}
+  - {fileID: 8300000, guid: 9770b574c262ba84e9eb1463b38c373b, type: 3}
+  m_volume: 1
+  m_loop: 0
+  m_backgroundSound: 0
+  m_effectSound: 0
 --- !u!1 &628829029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,6 +1531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1725150113}
   - component: {fileID: 1725150112}
+  - component: {fileID: 1725150114}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1554,6 +1575,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1725150114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1725150111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e154068df071e438a20fea9261af12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_audioSrc: {fileID: 0}
+  m_audioClip: []
+  m_volume: 1
+  m_loop: 1
+  m_backgroundSound: 1
+  m_effectSound: 0
 --- !u!1 &1889499096
 GameObject:
   m_ObjectHideFlags: 0

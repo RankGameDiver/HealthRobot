@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 225485143}
   - component: {fileID: 225485145}
   - component: {fileID: 225485144}
+  - component: {fileID: 225485146}
   m_Layer: 0
   m_Name: background
   m_TagString: Untagged
@@ -181,6 +182,86 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 225485142}
+--- !u!82 &225485146
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 225485142}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1e8c94bf53bef2a4b9f4e734a8b83039, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.543
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &285373692
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,6 +274,7 @@ GameObject:
   - component: {fileID: 285373694}
   - component: {fileID: 285373693}
   - component: {fileID: 285373696}
+  - component: {fileID: 285373698}
   m_Layer: 0
   m_Name: Enemy (7)
   m_TagString: Enemy
@@ -302,6 +384,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
+--- !u!114 &285373698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 285373692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8133df01be878a54d8b18effa0e67d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - {fileID: 8300000, guid: fffa8a05b459449479748b579d63b600, type: 3}
+  source: {fileID: 1634388853}
 --- !u!1 &510929590
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,6 +410,7 @@ GameObject:
   - component: {fileID: 510929592}
   - component: {fileID: 510929591}
   - component: {fileID: 510929594}
+  - component: {fileID: 510929596}
   m_Layer: 0
   m_Name: Enemy (5)
   m_TagString: Enemy
@@ -423,6 +520,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
+--- !u!114 &510929596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 510929590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8133df01be878a54d8b18effa0e67d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - {fileID: 8300000, guid: fffa8a05b459449479748b579d63b600, type: 3}
+  source: {fileID: 1634388853}
 --- !u!1 &690014723
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +546,7 @@ GameObject:
   - component: {fileID: 690014725}
   - component: {fileID: 690014724}
   - component: {fileID: 690014727}
+  - component: {fileID: 690014729}
   m_Layer: 0
   m_Name: Enemy (3)
   m_TagString: Enemy
@@ -544,6 +656,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
+--- !u!114 &690014729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 690014723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8133df01be878a54d8b18effa0e67d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - {fileID: 8300000, guid: fffa8a05b459449479748b579d63b600, type: 3}
+  source: {fileID: 1634388853}
 --- !u!1 &721944075
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,6 +682,7 @@ GameObject:
   - component: {fileID: 721944077}
   - component: {fileID: 721944076}
   - component: {fileID: 721944079}
+  - component: {fileID: 721944081}
   m_Layer: 0
   m_Name: Enemy (4)
   m_TagString: Enemy
@@ -665,6 +792,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
+--- !u!114 &721944081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 721944075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8133df01be878a54d8b18effa0e67d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - {fileID: 8300000, guid: fffa8a05b459449479748b579d63b600, type: 3}
+  source: {fileID: 1634388853}
 --- !u!1 &851201860
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +899,7 @@ GameObject:
   - component: {fileID: 1443211066}
   - component: {fileID: 1443211065}
   - component: {fileID: 1443211068}
+  - component: {fileID: 1443211070}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -867,6 +1009,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
+--- !u!114 &1443211070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1443211064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8133df01be878a54d8b18effa0e67d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - {fileID: 8300000, guid: fffa8a05b459449479748b579d63b600, type: 3}
+  source: {fileID: 1634388853}
 --- !u!1 &1607341648
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,6 +1102,7 @@ GameObject:
   - component: {fileID: 1634388849}
   - component: {fileID: 1634388851}
   - component: {fileID: 1634388852}
+  - component: {fileID: 1634388853}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1025,6 +1182,86 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7013fd7fd4de22143987c8c41d54e74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1634388853
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1634388848}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &1771770151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,6 +1274,7 @@ GameObject:
   - component: {fileID: 1771770153}
   - component: {fileID: 1771770152}
   - component: {fileID: 1771770155}
+  - component: {fileID: 1771770157}
   m_Layer: 0
   m_Name: Enemy (2)
   m_TagString: Enemy
@@ -1146,6 +1384,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
+--- !u!114 &1771770157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1771770151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8133df01be878a54d8b18effa0e67d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - {fileID: 8300000, guid: fffa8a05b459449479748b579d63b600, type: 3}
+  source: {fileID: 1634388853}
 --- !u!1 &1842759566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,6 +1496,7 @@ GameObject:
   - component: {fileID: 1888886199}
   - component: {fileID: 1888886198}
   - component: {fileID: 1888886201}
+  - component: {fileID: 1888886203}
   m_Layer: 0
   m_Name: Enemy (6)
   m_TagString: Enemy
@@ -1353,6 +1606,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
+--- !u!114 &1888886203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1888886197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8133df01be878a54d8b18effa0e67d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - {fileID: 8300000, guid: fffa8a05b459449479748b579d63b600, type: 3}
+  source: {fileID: 1634388853}
 --- !u!1 &1965196765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,6 +1694,7 @@ GameObject:
   - component: {fileID: 2034860516}
   - component: {fileID: 2034860515}
   - component: {fileID: 2034860518}
+  - component: {fileID: 2034860520}
   m_Layer: 0
   m_Name: Enemy (8)
   m_TagString: Enemy
@@ -1536,6 +1804,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
+--- !u!114 &2034860520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2034860514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8133df01be878a54d8b18effa0e67d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - {fileID: 8300000, guid: fffa8a05b459449479748b579d63b600, type: 3}
+  source: {fileID: 1634388853}
 --- !u!1 &2145671061
 GameObject:
   m_ObjectHideFlags: 0

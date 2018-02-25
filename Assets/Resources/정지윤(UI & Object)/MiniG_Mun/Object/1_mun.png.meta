@@ -1,78 +1,17 @@
 fileFormatVersion: 2
-guid: 9e75885f72d30774e85c2036e809e3c2
-timeCreated: 1519042769
+guid: df9d7d147b292a049a75d757e24e0814
+timeCreated: 1519474464
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: mun_2x2_1
-    21300002: mun_2x2_2
-    21300004: mun_2x2_3
-    21300006: mun_2x2_4
-    21300008: mun_0
-    21300010: mun_1
-    21300012: mun_2
-    21300014: mun_3
-    21300016: mun_4
-    21300018: mun_5
-    21300020: mun_6
-    21300022: mun_7
-    21300024: mun_8
-    21300026: mun_9
-    21300028: mun_10
-    21300030: mun_11
-    21300032: mun_12
-    21300034: mun_13
-    21300036: mun_14
-    21300038: mun_15
-    21300040: mun_16
-    21300042: mun_17
-    21300044: mun_18
-    21300046: mun_19
-    21300048: mun_20
-    21300050: mun_21
-    21300052: mun_22
-    21300054: mun_23
-    21300056: mun_24
-    21300058: mun_25
-    21300060: mun_26
-    21300062: mun_27
-    21300064: mun_28
-    21300066: mun_29
-    21300068: mun_30
-    21300070: mun_31
-    21300072: mun_32
-    21300074: mun_33
-    21300076: mun_34
-    21300078: mun_35
-    21300080: mun_36
-    21300082: mun_37
-    21300084: mun_38
-    21300086: mun_39
-    21300088: mun_40
-    21300090: mun_41
-    21300092: mun_42
-    21300094: mun_43
-    21300096: mun_44
-    21300098: mun_45
-    21300100: mun_46
-    21300102: mun_47
-    21300104: mun_48
-    21300106: mun_49
-    21300108: mun_50
-    21300110: mun_51
-    21300112: mun_52
-    21300114: mun_53
-    21300116: mun_54
-    21300118: mun_55
-    21300120: mun_56
-    21300122: mun_57
-    21300124: mun_58
-    21300126: mun_59
-    21300128: mun_60
-    21300130: 1_mun_0
-    21300132: 1_mun_1
-    21300134: 1_mun_2
-    21300136: 1_mun_3
+    21300000: "\uC0C1\uCC98\uBC1B\uC740\uBB38_0"
+    21300002: "\uC0C1\uCC98\uBC1B\uC740\uBB38_1"
+    21300004: "\uC0C1\uCC98\uBC1B\uC740\uBB38_2"
+    21300006: "\uC0C1\uCC98\uBC1B\uC740\uBB38_3"
+    21300008: 1_mun_0
+    21300010: 1_mun_1
+    21300012: 1_mun_2
+    21300014: 1_mun_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -145,16 +84,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: Android
-    maxTextureSize: 256
-    resizeAlgorithm: 0
-    textureFormat: 47
-    textureCompression: 1
-    compressionQuality: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 1
-    androidETC2FallbackOverride: 0
   - buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -174,6 +103,16 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Android
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: 34
+    textureCompression: 1
+    compressionQuality: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
     androidETC2FallbackOverride: 0
   - buildTarget: Windows Store Apps
     maxTextureSize: 2048
@@ -203,9 +142,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 105.5
-        width: 106.5
-        height: 105.5
+        y: 350
+        width: 350
+        height: 350
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,10 +155,10 @@ TextureImporter:
       name: 1_mun_1
       rect:
         serializedVersion: 2
-        x: 106
-        y: 105.5
-        width: 106.5
-        height: 105.5
+        x: 350
+        y: 350
+        width: 350
+        height: 350
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,9 +170,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0.5
-        width: 106.5
-        height: 105.5
+        y: 0
+        width: 350
+        height: 350
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,10 +183,10 @@ TextureImporter:
       name: 1_mun_3
       rect:
         serializedVersion: 2
-        x: 106
-        y: 0.5
-        width: 106.5
-        height: 105.5
+        x: 350
+        y: 0
+        width: 350
+        height: 350
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

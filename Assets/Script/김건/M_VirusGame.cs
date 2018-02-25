@@ -85,4 +85,12 @@ public class M_VirusGame: MonoBehaviour
         return totalScore;
     }
 
+    public int GetCureBar()
+    {
+        if (totalScore / 100 < 25)
+            return 25;
+        else
+            return totalScore / 100;
+    }
+
 }

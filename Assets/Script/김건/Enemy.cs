@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
 
     private BoxCollider2D boxCol { get{ return gameObject.GetComponent<BoxCollider2D>(); } }
     private M_VirusGame game { get { return FindObjectOfType<M_VirusGame>(); } }
+    private SoundM sound { get { return gameObject.GetComponent<SoundM>(); } }
 
     public void ColliderReset(int temp)
     {
@@ -33,6 +34,7 @@ public class Enemy : MonoBehaviour
     public IEnumerator VirusDead()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = game.virusDieImg[enemyKind];
+        sound.PlaySound();
         yield return new WaitForSeconds(0.2f);
         gameObject.SetActive(false);
         yield break;

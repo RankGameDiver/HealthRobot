@@ -25,6 +25,7 @@ public class MiniG_M_GameManager : MonoBehaviour
     public GameObject Piece;
     public GameObject PieceBackground;
     public GameObject PieceBackgroundParents;
+    public GameObject OnTheMendMun;
     public GameObject Title_Background;
     public GameObject obj_Title;
     public GameObject Text_Background;
@@ -52,17 +53,15 @@ public class MiniG_M_GameManager : MonoBehaviour
         }
         else if (Stage == 3)
         {
-            WhatMultiplication = 5;
+            WhatMultiplication = 8;
         }
         PieceState = new string[WhatMultiplication * WhatMultiplication];
 
         newPieceSprite = Resources.LoadAll<Sprite>("정지윤(UI & Object)/MiniG_Mun/Object/" + Stage + "_mun");
-
-        PieceBackgroundParents.transform.position = new Vector3(0 - 400.0f / 100.0f, 0f, 0f);
-        PieceBackgroundParents.GetComponent<RectTransform>().sizeDelta = new Vector2(484.0f, 480.0f);
-
+        
         PieceParents.GetComponent<RectTransform>().position = new Vector3(-8, 5.4f - newPieceSprite[0].rect.height / 100.0f - 0.5f);
         PieceParents.GetComponent<RectTransform>().sizeDelta = new Vector2(newPieceSprite[0].rect.width / 100.0f, newPieceSprite[0].rect.height / 100.0f);
+        //OnTheMendMun.transform.position = new Vector3(-8, 5.4f - newPieceSprite[0].rect.height / 100.0f - 0.5f);
         txt_time.text = TimeSec + "sec";
 
         StartCoroutine(CreationPiece());
@@ -76,27 +75,31 @@ public class MiniG_M_GameManager : MonoBehaviour
 
     void Update ()
     {
-        for (int i = 0; i < WhatMultiplication * WhatMultiplication; i++)
-        {
-            if (PieceState[i] != "locked")
-            {
-                GameOver = false;
-                break;
-            }
-            else
-            {
-                GameOver = true;
-            }
-        }
-
-        if (GameOver)
-            gp_GameProgress = M_GameProgress.Over;
-
         switch (gp_GameProgress)     // 게임의 진행상태에 따라 게임 상태를 변경
         {
             case M_GameProgress.Start:
                 {
                     StartCoroutine(TimeCount());
+
+                    for (int i = 0; i < WhatMultiplication * WhatMultiplication; i++)
+                    {
+                        if (PieceState[i] != "locked")
+                        {
+                            GameOver = false;
+                            break;
+                        }
+                        else
+                        {
+                            GameOver = true;
+                        }
+                    }
+
+                    if (GameOver)
+                    {
+                        gp_GameProgress = M_GameProgress.Over;
+                        StartCoroutine(IE_GameOver());
+                    }
+
                     break;
                 }
             case M_GameProgress.Over:
@@ -115,8 +118,6 @@ public class MiniG_M_GameManager : MonoBehaviour
                         Score = 0.0f;
 
                     StopCoroutine(TimeCount());
-                    txt_Score.text = Score.ToString();
-                    Text_Background.SetActive(true);
                     break;
                 }
             case M_GameProgress.None:     // 여기에서 할 일은 Start함수에 넣자
@@ -148,8 +149,8 @@ public class MiniG_M_GameManager : MonoBehaviour
     {
         for (int i = 0; i < WhatMultiplication * WhatMultiplication; i++)    
         {
-            float randomX = Random.Range(-270.0f, 270.0f);
-            float randomY = Random.Range(-270.0f, 270.0f);
+            float randomX = Random.Range(-210.0f, 210.0f);
+            float randomY = Random.Range(-210.0f, 210.0f);
             GameObject newPiece = Instantiate(Piece);
             newPiece.name = newPieceSprite[i].name.Substring(2, newPieceSprite[i].name.Length - 2);
             newPiece.transform.position = new Vector3((450.0f + randomX) / 100.0f, (0f + randomY) / 100.0f, 0f);
@@ -158,7 +159,7 @@ public class MiniG_M_GameManager : MonoBehaviour
             newPiece.GetComponent<SpriteRenderer>().sprite = newPieceSprite[i];
             newPiece.transform.SetParent(PieceParents.transform);
             newPiece.GetComponent<MovePiece>().PieceNum = i;
-            newPiece.transform.localScale = new Vector3(2.0f, 2.0f, 1.0f);
+            newPiece.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
         yield return null;
 
@@ -166,11 +167,15 @@ public class MiniG_M_GameManager : MonoBehaviour
 
     private IEnumerator CreationPieceBackground()
     {
-        float Width  = 424.0f / WhatMultiplication;
-        float Height = 420.0f / WhatMultiplication;
+        float Width  = 350.0f / WhatMultiplication * 2; 
+        float Height = 350.0f / WhatMultiplication * 2;
 
         float X = -(Width / 2 * (WhatMultiplication - 1)) - 400.0f;
         float Y = Height / 2 * (WhatMultiplication - 1);
+
+        PieceBackgroundParents.transform.position = new Vector3(0 - 400.0f / 100.0f, 0f, 0.0f);
+        OnTheMendMun.transform.position = new Vector3(0 - 400.0f / 100.0f, 0f, 0.0f);
+        PieceBackgroundParents.GetComponent<RectTransform>().sizeDelta = new Vector2(350.0f * 2 + 80.0f, 350.0f * 2 + 80.0f);
 
         for (int i = 0; i < WhatMultiplication; i++)
         {
@@ -192,6 +197,7 @@ public class MiniG_M_GameManager : MonoBehaviour
             Y -= Height;
         }
 
+        
 
         yield return null;
     }
@@ -210,5 +216,21 @@ public class MiniG_M_GameManager : MonoBehaviour
         txt_time.gameObject.SetActive(true);
         gp_GameProgress = M_GameProgress.Start;
         GameState = "Start";
+        yield return null;
+    }
+
+    private IEnumerator IE_GameOver()
+    {
+        OnTheMendMun.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        for (float i = 0; i <= 255; i += 2)
+        {
+            OnTheMendMun.GetComponent<SpriteRenderer>().color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, i / 255.0f);
+            yield return new WaitForSeconds(0.01f);
+        }
+        yield return new WaitForSeconds(2.0f);
+        txt_Score.text = Score.ToString();
+        Text_Background.SetActive(true);
+        yield return null;
     }
 }

@@ -40,6 +40,7 @@ public class RunGameManager : MonoBehaviour
 
     // Use this for initialization
     void Start () {
+        Time.timeScale = 1.0f;
         for (int i =0; i < player.maxLife; i++)
         {
             hpObj[i].gameObject.SetActive(true);
@@ -73,6 +74,7 @@ public class RunGameManager : MonoBehaviour
     public void FL_Start()
     {
         AndroidJavaClass cameraClass = new AndroidJavaClass("android.hardware.Camera");
+        WebCamDevice[] devices = WebCamTexture.devices;
 
         int camID = 0;
         camera1 = cameraClass.CallStatic<AndroidJavaObject>("open", camID);
