@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Anima2D;
 
 public class RunPlayer : MonoBehaviour {
 
@@ -19,17 +19,23 @@ public class RunPlayer : MonoBehaviour {
 
     public int maxLife;
     public int currentLife;
+    public int coin = 0;
 
     public bool[] healthTime = new bool[6];
     public bool feverTime = false;
+    public int doorNum = 0; // 0 null 1 처치실 2 수술실 3 검사실
 
-	// Use this for initialization
-	void Start () {
+    public GameObject[] faceObj; // 0 기본 1 웃음 2 슬픔
+    public SpriteMeshInstance[] bodyMesh;
+
+    // Use this for initialization
+    void Start()
+    {
         m_rigid = GetComponent<Rigidbody2D>();
         m_animator = GetComponent<Animator>();
         jumpCnt = 2;
 
-        currentLife = maxLife;
+        if (currentLife == 0) currentLife = maxLife;
     }
 
     // Update is called once per frame
@@ -84,15 +90,39 @@ public class RunPlayer : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.tag == "Door")
+        {
+            r_GM.OnActionButton();
+
+            switch(collision.gameObject.name)
+            {
+                case "Door1":
+                    doorNum = 1;
+                    break;
+
+                case "Door2":
+                    doorNum = 2;
+                    break;
+
+                case "Door3":
+                    doorNum = 3;
+                    break;
+            }
+        }
+
         if(collision.gameObject.tag == "Enemy" && !isUnHitTime)
         {
             if (feverTime) collision.GetComponent<Rigidbody2D>().AddForce(new Vector2(3000, 3000));
             else
             {
                 isUnHitTime = true;
+                currentLife--;
                 r_GM.SubHeart();
+                faceObj[0].SetActive(false);
+                faceObj[1].SetActive(false);
+                faceObj[2].SetActive(true);
+                StartCoroutine(UnHitTime());
             }
-            //StartCoroutine(UnHitTime());
         }
 
         if (collision.gameObject.tag == "Score")
@@ -133,6 +163,9 @@ public class RunPlayer : MonoBehaviour {
             if (ChecAllHealth() && !feverTime)
             {
                 feverTime = true;
+                faceObj[0].SetActive(false);
+                faceObj[1].SetActive(true);
+                faceObj[2].SetActive(false);
                 StartCoroutine(PlayerGetBigger());
             }
 
@@ -141,7 +174,7 @@ public class RunPlayer : MonoBehaviour {
             Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.tag == "Score")
+        if (collision.gameObject.tag == "Heart")
         {
             if (currentLife < maxLife)
             {
@@ -151,31 +184,51 @@ public class RunPlayer : MonoBehaviour {
         }
     }
 
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Door")
+        {
+            r_GM.OffActionButton();
+            doorNum = 0;
+        }
+    }
+
     IEnumerator UnHitTime()
     {
         int countTime = 0;
 
-        //for(int)
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-
-        while(countTime < 10)
+        while (countTime < 10)
         {
-            if (countTime % 2 == 0)
-                spriteRenderer.color = new Color32(255, 255, 255, 90);
-            else
-                spriteRenderer.color = new Color32(255, 255, 255, 180);
+
+            for (int i = 0; i < bodyMesh.Length; i++)
+            {
+
+                if (countTime % 2 == 0)
+                    bodyMesh[i].color = new Color32(255, 255, 255, 255);
+                else
+                    bodyMesh[i].color = new Color32(150, 150, 150, 255);
+
+
+            }
 
             yield return new WaitForSeconds(0.2f);
 
             countTime++;
+
         }
 
-        spriteRenderer.color = new Color32(255, 255, 255, 255);
+        for (int i = 0; i < bodyMesh.Length; i++)
+            bodyMesh[i].color = new Color32(255, 255, 255, 255);
+
+        faceObj[0].SetActive(true);
+        faceObj[1].SetActive(false);
+        faceObj[2].SetActive(false);
 
         isUnHitTime = false;
 
         yield return false;
     }
+
 
     IEnumerator PlayerGetBigger()
     {
@@ -213,6 +266,9 @@ public class RunPlayer : MonoBehaviour {
                 healthTime[i] = false;
             }
             r_GM.OffHealthTimeObj();
+            faceObj[0].SetActive(true);
+            faceObj[1].SetActive(false);
+            faceObj[2].SetActive(false);
         }
         else
         {

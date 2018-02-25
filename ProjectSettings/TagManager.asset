@@ -10,6 +10,8 @@ TagManager:
   - Puzzle
   - Score
   - Heart
+  - Data
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -61,6 +63,9 @@ TagManager:
     locked: 0
   - name: Particle
     uniqueID: 183430473
+    locked: 0
+  - name: Text
+    uniqueID: 429419007
     locked: 0
   - name: Top
     uniqueID: 3437013515

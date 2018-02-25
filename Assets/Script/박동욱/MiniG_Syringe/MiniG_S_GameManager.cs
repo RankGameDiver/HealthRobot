@@ -20,10 +20,9 @@ public class MiniG_S_GameManager : MonoBehaviour {
 
     private S_GameProgress gp_GameProgress = S_GameProgress.None;     // 타이틀이 사라지고 게임 시작했는지 확인하는 변수
     private bool Moving = false;        // 주사기가 움직이고 있는지 확인하는 변수
+    private bool isGameOver = false;
     
     public int HP = 1;              // 체력 변수
-    public int PerHPScore = 30;     // 체력당 스코우 변수
-    private int Score = 0;          // 게임 스코어
 
     public Sprite DistroyHp;
     public GameObject Title_Background;
@@ -34,7 +33,6 @@ public class MiniG_S_GameManager : MonoBehaviour {
     public GameObject obj_Syringe;
     public GameObject obj_Band;
     public GameObject Text_Background;
-    public Text txt_Score;
     public Animator anim_Syringe;
     public Animator anim_Effect;
 
@@ -62,12 +60,13 @@ public class MiniG_S_GameManager : MonoBehaviour {
         {
             case S_GameProgress.Start:
                 {
+                    int RandomSpeed = Random.Range(2, 5);
                     if (s_Vessel.transform.position.x <= -3.1f || s_Vessel.transform.position.x >= 3.75f)   // 팔 움직임 좌우 조작
                     {
                         VesselSpeed *= -1;
                         count++;
                         if (count % 2 == 0)     // 팔이 좌우로 한번 왔다갔다하면 스피드 증가
-                            VesselSpeed += 1;
+                            VesselSpeed = RandomSpeed;
                     }
 
                     s_Vessel.transform.Translate(new Vector3(VesselSpeed * Time.deltaTime, 0, 0));  // 팔 이동
@@ -76,10 +75,10 @@ public class MiniG_S_GameManager : MonoBehaviour {
                     {
                         ArmSpeed *= -1;
                         if (count % 2 == 0)     // 팔이 좌우로 한번 왔다갔다하면 스피드 증가
-                            ArmSpeed += 1;
+                            ArmSpeed = RandomSpeed;
                     }
 
-                    s_Arm.transform.Translate(new Vector3(VesselSpeed * Time.deltaTime, 0, 0));  // 팔 이동
+                    s_Arm.transform.Translate(new Vector3(ArmSpeed * Time.deltaTime, 0, 0));  // 팔 이동
 
                     if (Input.GetMouseButtonDown(0) && !Moving) // 화면 클릭시 주사기가 내려옴
                     {
@@ -90,8 +89,12 @@ public class MiniG_S_GameManager : MonoBehaviour {
                 }
             case S_GameProgress.Over:
                 {
-                    txt_Score.text = Score.ToString();
-                    Text_Background.SetActive(true);
+                    if (!isGameOver)
+                    {
+                        Text_Background.SetActive(true);
+                        Text_Background.GetComponent<MiniGameResult>().SetText(HP * 5);
+                        isGameOver = true;
+                    }
                     break;
                 }
             case S_GameProgress.None:     // 여기에서 할 일은 Start함수에 넣자
@@ -111,7 +114,6 @@ public class MiniG_S_GameManager : MonoBehaviour {
         if (s_Vessel.Collision) // 주사기와 혈관이 충돌했을시
         {
             VesselSpeed = 0;
-            Score = HP * PerHPScore;
             anim_Syringe.Play("Syringes");
             yield return new WaitForSeconds(1.0f);
             gp_GameProgress = S_GameProgress.Over;
@@ -127,7 +129,6 @@ public class MiniG_S_GameManager : MonoBehaviour {
             yield return new WaitForSeconds(1.5f);
             if (HP == 0)     // 체력이 0이라면 게임 종료
             {
-                Score = 0;
                 gp_GameProgress = S_GameProgress.Over;
             }
         }
@@ -141,7 +142,6 @@ public class MiniG_S_GameManager : MonoBehaviour {
             yield return new WaitForSeconds(1.0f);
             if (HP == 0)     // 체력이 0이라면 게임 종료
             {
-                Score = 0;
                 gp_GameProgress = S_GameProgress.Over;
             }
         }

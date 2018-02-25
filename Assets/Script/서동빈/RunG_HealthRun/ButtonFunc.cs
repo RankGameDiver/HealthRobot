@@ -59,4 +59,27 @@ public class ButtonFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             PlayerData.money += 1000;
         }
     }
+    
+    public void CreateObj(GameObject obj)
+    {
+        Instantiate(obj).name = "RunGameData";
+    }
+
+    public void ChangeMiniGameScene()
+    {
+        switch(player.doorNum)
+        {
+            case 1:
+                SceneManager.LoadScene("MiniG_Syringe");
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                break;
+        }
+
+        player.r_GM.SaveScene();
+    }
 }
