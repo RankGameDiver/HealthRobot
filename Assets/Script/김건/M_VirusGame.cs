@@ -7,8 +7,10 @@ public class M_VirusGame: MonoBehaviour
 {
     [SerializeField]
     private int totalScore; // 총 점수
-    [SerializeField]
-    private float timer; // 미니게임의 타이머
+    public int timer; // 미니게임의 타이머
+    private bool gameover = false;
+    private bool checkResult = false;
+
     public GameObject[] enemy;
     public int virusLife;
 
@@ -19,14 +21,21 @@ public class M_VirusGame: MonoBehaviour
     public Sprite[] virusDieImg;
 
     private int deltaTime;
-    public int coolTime; // Enemy 생성 대기시간
-    public int tempTime = 0;
+    public float coolTime; // Enemy 생성 대기시간
+
+    public GameObject result;
+    public GameObject particle;
 
     void Update()
     {
         Timer();
+        TouchCheck();
+    }
+
+    private void TouchCheck()
+    {
         rayCheck.Touch();
-        if (rayCheck.Ray())
+        if (rayCheck.Ray() && !gameover)
         {
             Enemy s_enemy = rayCheck.Ray("Enemy").GetComponent<Enemy>();
             GameObject g_enemy = rayCheck.Ray("Enemy");
@@ -34,17 +43,27 @@ public class M_VirusGame: MonoBehaviour
             {
                 totalScore += s_enemy.score;
                 StartCoroutine(s_enemy.VirusDead());
-                //g_enemy.SetActive(false);
             }
             else
             {
-                s_enemy.life--;
+                s_enemy.life--;           
             }
+            s_enemy.GetSound().PlaySound();
             rayCheck.RayReset();
+            Instantiate(particle).transform.position = g_enemy.transform.position + new Vector3((float)(Random.Range(0,11) - 5) / 10, (float)(Random.Range(0, 11) - 5) / 10);
         }
     }
 
-    public void CreateEnemy()
+    public IEnumerator SpawnVirus()
+    {
+        while (!gameover)
+        {
+            StartCoroutine(CreateEnemy());
+            yield return new WaitForSeconds(coolTime);
+        }
+    }
+
+    public IEnumerator CreateEnemy()
     {
         for (int i = 0; i < 8; i++)
         {
@@ -53,30 +72,37 @@ public class M_VirusGame: MonoBehaviour
             else
             {
                 Enemy s_enemy = enemy[i].GetComponent<Enemy>();
-                s_enemy.life = virusLife;
-                s_enemy.score = 100;
                 s_enemy.enemyKind = Random.Range(0, 4);
                 enemy[i].GetComponent<SpriteRenderer>().sprite = virusImg[s_enemy.enemyKind];
                 s_enemy.ColliderReset(s_enemy.enemyKind);
                 enemy[i].transform.position = new Vector2(Random.Range(-7.0f, 7.0f), Random.Range(-4.0f, 4.0f));
                 enemy[i].SetActive(true);
                 i = 10;
+                yield return null;
             }
         }
     }
 
     public void Timer()
     {
-        if (deltaTime != System.DateTime.Now.Second)
+        if (deltaTime != System.DateTime.Now.Second && timer > 0)
         {
             deltaTime = System.DateTime.Now.Second;
-            tempTime++;
+            timer--;
         }
 
-        if (tempTime >= coolTime && uiManager.ingame)
+        if (!gameover && uiManager.ingame)
         {
-            CreateEnemy();
-            tempTime = 0;
+            if (timer <= 0)
+            {
+                gameover = true;
+            }
+        }
+        else if(gameover && !checkResult) // 타임 아웃시 여기에 추가
+        {
+            result.SetActive(true);
+            result.GetComponent<MiniGameResult>().SetText(GetCureBar());
+            checkResult = true;
         }
     }
 
@@ -85,12 +111,17 @@ public class M_VirusGame: MonoBehaviour
         return totalScore;
     }
 
+    public int GetTimer()
+    {
+        return timer;
+    }
+
     public int GetCureBar()
     {
-        if (totalScore / 100 < 25)
+        if (totalScore / 500 > 25)
             return 25;
         else
-            return totalScore / 100;
+            return totalScore / 500;
     }
 
 }

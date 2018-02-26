@@ -20,6 +20,7 @@ public class MiniG_M_GameManager : MonoBehaviour
     private bool Timeset = false;
     private float Score = 0;
     private bool GameOver = false;
+    private bool ExampleImageOn = false;
 
     public GameObject PieceParents;
     public GameObject Piece;
@@ -29,9 +30,9 @@ public class MiniG_M_GameManager : MonoBehaviour
     public GameObject Title_Background;
     public GameObject obj_Title;
     public GameObject Text_Background;
+    public GameObject ExampleImage;
+    public GameObject ExampleText;
     public Text txt_time;
-    public Text txt_Result;
-    public Text txt_Score;
 
     private M_GameProgress gp_GameProgress = M_GameProgress.None;
 
@@ -40,6 +41,11 @@ public class MiniG_M_GameManager : MonoBehaviour
     public static string GameState = "None";
 
     private void Awake()
+    {
+        
+    }
+
+    void Start ()
     {
         s_Stage = Stage;
 
@@ -58,7 +64,7 @@ public class MiniG_M_GameManager : MonoBehaviour
         PieceState = new string[WhatMultiplication * WhatMultiplication];
 
         newPieceSprite = Resources.LoadAll<Sprite>("정지윤(UI & Object)/MiniG_Mun/Object/" + Stage + "_mun");
-        
+
         PieceParents.GetComponent<RectTransform>().position = new Vector3(-8, 5.4f - newPieceSprite[0].rect.height / 100.0f - 0.5f);
         PieceParents.GetComponent<RectTransform>().sizeDelta = new Vector2(newPieceSprite[0].rect.width / 100.0f, newPieceSprite[0].rect.height / 100.0f);
         //OnTheMendMun.transform.position = new Vector3(-8, 5.4f - newPieceSprite[0].rect.height / 100.0f - 0.5f);
@@ -67,10 +73,6 @@ public class MiniG_M_GameManager : MonoBehaviour
         StartCoroutine(CreationPiece());
         StartCoroutine(CreationPieceBackground());
         StartCoroutine(TitleTransform());
-    }
-
-    void Start ()
-    {
     }
 
     void Update ()
@@ -97,6 +99,7 @@ public class MiniG_M_GameManager : MonoBehaviour
                     if (GameOver)
                     {
                         gp_GameProgress = M_GameProgress.Over;
+                        GameState = "Over";
                         StartCoroutine(IE_GameOver());
                     }
 
@@ -115,9 +118,13 @@ public class MiniG_M_GameManager : MonoBehaviour
                     else if (TimeSec > 0.0f)
                         Score = 5.0f;
                     else if (TimeSec < 0.0f)
+                    {
                         Score = 0.0f;
-
+                        Text_Background.SetActive(true);
+                        Text_Background.GetComponent<MiniGameResult>().SetText((int)Score);
+                    }
                     StopCoroutine(TimeCount());
+                    ExampleImage.GetComponent<SpriteRenderer>().sprite = OnTheMendMun.GetComponent<SpriteRenderer>().sprite;
                     break;
                 }
             case M_GameProgress.None:     // 여기에서 할 일은 Start함수에 넣자
@@ -131,16 +138,16 @@ public class MiniG_M_GameManager : MonoBehaviour
         {
             TimeSec -= Time.deltaTime;
             if(TimeSec < 10.0f)
-                txt_time.text = TimeSec.ToString().Substring(0, 1) +"sec";
+                txt_time.text = "Time : " + TimeSec.ToString().Substring(0, 1);
             else
-                txt_time.text = TimeSec.ToString().Substring(0, 2) +"sec";
+                txt_time.text = "Time : " + TimeSec.ToString().Substring(0, 2);
         }
         else if (TimeSec < 0.0f && Timeset == false)
         {
-            txt_time.text = TimeSec.ToString().Substring(1, 1) + "sec";
-            txt_Result.text = "Time Over";
+            txt_time.text = "Time : " + TimeSec.ToString().Substring(1, 1);
             Score = 0;
             gp_GameProgress = M_GameProgress.Over;
+            GameState = "Over";
         }
         yield return null;
     }
@@ -169,6 +176,7 @@ public class MiniG_M_GameManager : MonoBehaviour
     {
         float Width  = 350.0f / WhatMultiplication * 2; 
         float Height = 350.0f / WhatMultiplication * 2;
+
 
         float X = -(Width / 2 * (WhatMultiplication - 1)) - 400.0f;
         float Y = Height / 2 * (WhatMultiplication - 1);
@@ -213,7 +221,8 @@ public class MiniG_M_GameManager : MonoBehaviour
         }
         Title_Background.SetActive(false);  // 있어도 그만 없어도 그만인 코드
         obj_Title.SetActive(false);         // 있어도 그만 없어도 그만인 코드
-        txt_time.gameObject.SetActive(true);
+        txt_time.transform.parent.gameObject.SetActive(true);
+        ExampleText.SetActive(true);
         gp_GameProgress = M_GameProgress.Start;
         GameState = "Start";
         yield return null;
@@ -222,6 +231,7 @@ public class MiniG_M_GameManager : MonoBehaviour
     private IEnumerator IE_GameOver()
     {
         OnTheMendMun.SetActive(true);
+        OnTheMendMun.GetComponent<AudioManager>().PlayEffectSound(0); // 클리어 사운드
         yield return new WaitForSeconds(2.0f);
         for (float i = 0; i <= 255; i += 2)
         {
@@ -229,8 +239,25 @@ public class MiniG_M_GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         yield return new WaitForSeconds(2.0f);
-        txt_Score.text = Score.ToString();
         Text_Background.SetActive(true);
+        Text_Background.GetComponent<MiniGameResult>().SetText((int)Score);
         yield return null;
+    }
+
+    public void ExampleImageOnOff()
+    {
+        if (gp_GameProgress == M_GameProgress.Start)
+        {
+            if (!ExampleImageOn)
+            {
+                ExampleImage.SetActive(true);
+                ExampleImageOn = true;
+            }
+            else
+            {
+                ExampleImage.SetActive(false);
+                ExampleImageOn = false;
+            }
+        }
     }
 }

@@ -8,6 +8,9 @@ public class RunGameResult : MonoBehaviour {
     public Image gradeImg;
     public Sprite[] gradeSprite;
 
+    public Image gameClear;
+    public Sprite[] clearSprite;
+
     public Text score;
     public Text coin;
     public Text treatment;
@@ -23,13 +26,26 @@ public class RunGameResult : MonoBehaviour {
 		
 	}
 
-    public void SetResult(int score, int coin, int treatment)
+    public void SetResult(bool clear, int score, int coin, int treatment)
     {
         this.score.text = score.ToString();
         this.coin.text = coin.ToString();
         this.treatment.text = treatment.ToString() + "%";
 
-        totalScore.text = (score + ((float)score * (float)((float)treatment / 100))).ToString();
+        if(clear)
+        {
+            totalScore.text = (score + ((float)score * (float)((float)treatment / 100))).ToString();
+            gameClear.sprite = clearSprite[0];
+        }
+
+        else
+        {
+            totalScore.text = score.ToString();
+            gameClear.sprite = clearSprite[1];
+        }
+
+
+        PlayerData.money += coin;
 
         if (treatment >= 80) gradeImg.sprite = gradeSprite[4];
         else if (treatment >= 60) gradeImg.sprite = gradeSprite[3];

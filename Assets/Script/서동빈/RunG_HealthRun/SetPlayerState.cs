@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum PlayerState
 {
-    RUN, JUMP, SLIDE
+    RUN, JUMP, SLIDE, DIE
 }
 
 public class SetPlayerState : StateMachineBehaviour {

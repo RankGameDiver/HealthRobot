@@ -28,8 +28,11 @@ public class AudioManager : MonoBehaviour
         m_audioSrc.volume = m_volume;
         m_audioSrc.panStereo = 0.0f;
 
-        if(!m_effectSound && m_backgroundSound)
-            PlaySound();
+        if (m_backgroundSound && !m_effectSound)
+        {
+            m_audioSrc.clip = m_audioClip[0];
+            m_audioSrc.Play();
+        }
     }
 
     // Update is called once per frame
@@ -37,13 +40,10 @@ public class AudioManager : MonoBehaviour
     {
     }
 
-    public void PlaySound(int NeedSoundNum = 0)
+    public void PlayEffectSound(int NeedSoundNum = 0)
     {
         m_audioSrc.clip = m_audioClip[NeedSoundNum];
 
-        if (!m_effectSound && m_backgroundSound)
-            m_audioSrc.Play();
-        else
-            m_audioSrc.PlayOneShot(m_audioClip[NeedSoundNum]);
+        m_audioSrc.PlayOneShot(m_audioClip[NeedSoundNum]);
     }
 }

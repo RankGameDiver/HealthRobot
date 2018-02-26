@@ -25,12 +25,13 @@ public class MiniGameResult : MonoBehaviour {
 
     public void SetText(int get)
     {
-        RunGameData r_GD = GameObject.Find("RunGameData").GetComponent<RunGameData>();
+        RunGameData r_GD = GameObject.Find("RunGameData(Clone)").GetComponent<RunGameData>();
         getPer.text = get.ToString() + "%";
         currentPer.text = (r_GD.treatmentPer + get).ToString() + "%";
 
         if (get >= 20) resultImg.sprite = resultSprite[4];
         else if (get >= 15) resultImg.sprite = resultSprite[3];
+
         else if (get >= 10) resultImg.sprite = resultSprite[2];
         else if (get >= 5) resultImg.sprite = resultSprite[1];
         else resultImg.sprite = resultSprite[0];
@@ -40,7 +41,7 @@ public class MiniGameResult : MonoBehaviour {
 
     public void AddPer()
     {
-        RunGameData r_GD = GameObject.Find("RunGameData").GetComponent<RunGameData>();
+        RunGameData r_GD = GameObject.Find("RunGameData(Clone)").GetComponent<RunGameData>();
         r_GD.treatmentPer = r_GD.treatmentPer + i_get;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using UnityEngine.SceneManagement;
 
 public class Title : MonoBehaviour {
@@ -14,7 +15,13 @@ public class Title : MonoBehaviour {
 	void Update () {
 		if(Input.GetMouseButtonDown(0))
         {
-            SceneManager.LoadScene("CharacterCreate");
+            if (File.Exists(Application.dataPath + "/Data/SaveData.json"))
+            {
+                SaveLoad temp = new SaveLoad();
+                temp.Load();
+                SceneManager.LoadScene("MainMenu");
+            }
+            else SceneManager.LoadScene("CharacterCreate");
         }
-	}
+    }
 }

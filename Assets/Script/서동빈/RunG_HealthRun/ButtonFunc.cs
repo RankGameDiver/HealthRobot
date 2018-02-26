@@ -32,7 +32,10 @@ public class ButtonFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             case BUTTON_KIND.SLIDE_BTN:
                 if (buttonDown) player.Slide();
-                else player.Stand();
+                else
+                {
+                    if(player.m_animator.GetInteger("PlayerState") != (int)PlayerState.DIE) player.Stand();
+                }
                 break;
         }
     }
@@ -62,7 +65,7 @@ public class ButtonFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     
     public void CreateObj(GameObject obj)
     {
-        Instantiate(obj).name = "RunGameData";
+        Instantiate(obj);
     }
 
     public void ChangeMiniGameScene()
@@ -74,9 +77,11 @@ public class ButtonFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 break;
 
             case 2:
+                SceneManager.LoadScene("MiniG_Mun");
                 break;
 
             case 3:
+                SceneManager.LoadScene("MiniG_Virus");
                 break;
         }
 

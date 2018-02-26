@@ -16,10 +16,25 @@ public class MainMenuManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        Debug.Log(PlayerData.money);
 		if(moneyTxt.text != PlayerData.money.ToString())
         {
             moneyTxt.text = PlayerData.money.ToString();
         }
-	}
+
+        if (Application.platform == RuntimePlatform.Android)
+
+        {
+
+            if (Input.GetKey(KeyCode.Escape))
+
+            {
+
+                // 할꺼 하셈
+
+                Application.Quit();
+
+            }
+
+        }
+    }
 }

@@ -12,6 +12,7 @@ TagManager:
   - Heart
   - Data
   - Door
+  - Coin
   layers:
   - Default
   - TransparentFX

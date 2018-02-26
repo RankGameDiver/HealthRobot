@@ -17,24 +17,34 @@ public class Enemy : MonoBehaviour
         switch (temp)
         {
             case 0:
-                boxCol.size = new Vector2(3, 3);
+                boxCol.size = new Vector2(2, 2);
+                life = 1;              
                 break;
             case 1:
-                boxCol.size = new Vector2(3, 3);
+                boxCol.size = new Vector2(2.5f, 2.5f);
+                life = 2;
                 break;
             case 2:
-                boxCol.size = new Vector2(4, 4);
+                boxCol.size = new Vector2(3.5f, 4);
+                life = 3;
                 break;
             case 3:
-                boxCol.size = new Vector2(4, 4);
+                boxCol.size = new Vector2(5, 5);
+                life = 4;
                 break;
-        }       
+        }
+        score = life * 100;
+    }
+
+    public SoundM GetSound()
+    {
+        return sound;
     }
 
     public IEnumerator VirusDead()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = game.virusDieImg[enemyKind];
-        sound.PlaySound();
+        //sound.PlaySound();
         yield return new WaitForSeconds(0.2f);
         gameObject.SetActive(false);
         yield break;

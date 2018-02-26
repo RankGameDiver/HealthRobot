@@ -11,6 +11,8 @@ public class RunGameManager : MonoBehaviour
 #endif
     public RunPlayer player;  // 플레이어
     public GameObject[] pattern; // 런게임 패턴
+    public GameObject[] doorPattern;
+    public GameObject gagu;
     public GameObject bgIndex; // 배경 목록 오브젝트
     public Text t_scoreTex; // 점수 텍스트 오브젝트
     public GameObject StartBtn; // 시작 버튼
@@ -21,6 +23,7 @@ public class RunGameManager : MonoBehaviour
     public RunGameData r_GD; // 미니게임에 넘어갈 때 현재 상황을 저장 해놓을 오브젝트
     public Button[] playerControllBtn; // 0 점프, 1 슬라이드 버튼
     public Button[] actionBtn; // 액션 버튼
+    public Text t_Coin;
 
     public bool isPlaying = true;  // 현재 게임이 진행 중인가?
 
@@ -36,32 +39,46 @@ public class RunGameManager : MonoBehaviour
 
     public int minigameCnt = 0;
     public bool GameEnd = false;
+    public bool clearGame = false;
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         Time.timeScale = 1.0f;
-        for (int i =0; i < player.maxLife; i++)
+        for (int i = 0; i < player.maxLife; i++)
         {
             hpObj[i].gameObject.SetActive(true);
             hpObj[i].sprite = on_hpSprite;
         }
 
-        r_GD = GameObject.Find("RunGameData").GetComponent<RunGameData>();
-        if(r_GD.isMapChange) ReSetting();
+        r_GD = GameObject.Find("RunGameData(Clone)").GetComponent<RunGameData>();
+        if (r_GD.isMapChange) ReSetting();
+        else
+        {
+            r_GD.transform.GetChild(0).gameObject.SetActive(true);
+        }
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+
+            {
+                StopGame();
+            }
+
+        }
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
-    
-    public GameObject GetPattern()
-    { 
-        int tempPattern = Random.Range(0, pattern.Length - 2);
-        GameObject obj = pattern[tempPattern];
+    void Update()
+    {
+    }
 
-        Debug.Log(tempPattern);
+    public GameObject GetPattern()
+    {
+        int tempPattern = Random.Range(0, pattern.Length - 1);
+        GameObject obj = pattern[tempPattern];
 
         GameObject tempObj = pattern[tempPattern];
         pattern[tempPattern] = pattern[pattern.Length - 1];
@@ -121,7 +138,7 @@ public class RunGameManager : MonoBehaviour
 
     public void SubHeart()
     {
-        for(int i = player.maxLife - 1; i >= 0; i--)
+        for (int i = player.maxLife - 1; i >= 0; i--)
         {
             if (hpObj[i].sprite == on_hpSprite)
             {
@@ -150,7 +167,7 @@ public class RunGameManager : MonoBehaviour
 
     public void OffHealthTimeObj(int num = 7)
     {
-        if(num == 7)
+        if (num == 7)
         {
             for (int i = 0; i < 6; i++)
             {
@@ -166,7 +183,7 @@ public class RunGameManager : MonoBehaviour
 
     public void OnActionButton()
     {
-        for(int i = 0; i < 2; i++)
+        for (int i = 0; i < 2; i++)
         {
             playerControllBtn[i].gameObject.SetActive(false);
             actionBtn[i].gameObject.SetActive(true);
@@ -184,7 +201,7 @@ public class RunGameManager : MonoBehaviour
 
     public void SaveScene()
     {
-        r_GD = GameObject.Find("RunGameData").GetComponent<RunGameData>();
+        r_GD = GameObject.Find("RunGameData(Clone)").GetComponent<RunGameData>();
 
         for (int i = 0; i < 4; i++)
         {
@@ -207,26 +224,15 @@ public class RunGameManager : MonoBehaviour
     {
         t_treatmentPer.text = treatmentPer.ToString() + "%";
 
-        if(treatmentPer >= 20)
+        if (treatmentPer >= 80)
         {
-            treatmentImg.sprite = treatmentSprite[1];
-            for(int i = 0; i< 5; i++)
-            {
-                faceUI[i].sprite = faceOffsprite[i];
-            }
-
-            faceUI[1].sprite = faceOnsprite[1];
-        }
-
-        else if (treatmentPer >= 40)
-        {
-            treatmentImg.sprite = treatmentSprite[2];
+            treatmentImg.sprite = treatmentSprite[4];
             for (int i = 0; i < 5; i++)
             {
                 faceUI[i].sprite = faceOffsprite[i];
             }
 
-            faceUI[2].sprite = faceOnsprite[2];
+            faceUI[4].sprite = faceOnsprite[4];
 
         }
 
@@ -242,21 +248,34 @@ public class RunGameManager : MonoBehaviour
 
         }
 
-        else if (treatmentPer >= 80)
+        else if (treatmentPer >= 40)
         {
-            treatmentImg.sprite = treatmentSprite[4];
+            treatmentImg.sprite = treatmentSprite[2];
             for (int i = 0; i < 5; i++)
             {
                 faceUI[i].sprite = faceOffsprite[i];
             }
 
-            faceUI[4].sprite = faceOnsprite[4];
+            faceUI[2].sprite = faceOnsprite[2];
 
+        }
+
+        else if (treatmentPer >= 20)
+        {
+            treatmentImg.sprite = treatmentSprite[1];
+            for (int i = 0; i < 5; i++)
+            {
+                faceUI[i].sprite = faceOffsprite[i];
+            }
+
+            faceUI[1].sprite = faceOnsprite[1];
         }
     }
 
+
     public void ReSetting()
     {
+        player.m_animator.Play("Run");
         r_GD.isMapChange = false;
         t_scoreTex.text = r_GD.score.ToString();
         player.healthTime = r_GD.health;
@@ -265,29 +284,44 @@ public class RunGameManager : MonoBehaviour
             SubHeart();
             player.currentLife--;
         }
-        for(int i = 0; i < 4;i++)
+        for (int i = 0; i < 4; i++)
         {
-            bgIndex.transform.GetChild(i).transform.position = r_GD.bgPostionIndex[i];
+            bgIndex.transform.GetChild(i).transform.position = r_GD.bgPostionIndex[i] - new Vector3(5,0);
             r_GD.patternIndex[i].transform.parent = bgIndex.transform.GetChild(i);
             bgIndex.transform.GetChild(i).GetChild(0).localPosition = Vector3.zero;
             bgIndex.transform.GetChild(i).GetChild(0).gameObject.SetActive(true);
+            GameObject _gagu = Instantiate(gagu);
+            _gagu.transform.parent = bgIndex.transform.GetChild(i).transform;
+            _gagu.transform.localPosition = Vector3.zero;
         }
         player.coin = r_GD.coin;
-        for(int i = 0; i < 6;i ++)
+        t_Coin.text = r_GD.coin.ToString();
+
+        if (player.ChecAllHealth())
         {
-            player.healthTime[i] = r_GD.health[i];
+            for (int i = 0; i < 6; i++)
+            {
+                r_GD.health[i] = false;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                player.healthTime[i] = r_GD.health[i];
+            }
         }
         treatmentPer = r_GD.treatmentPer;
         SettingPer();
         minigameCnt = r_GD.minigameCnt;
-        minigameCnt++;
 
-        if(minigameCnt >= 1)
+        if (minigameCnt >= 4)
         {
             GameEnd = true;
             Time.timeScale = 0;
             r_GR.gameObject.SetActive(true);
-            r_GR.SetResult(System.Convert.ToInt32(t_scoreTex.text), player.coin, treatmentPer);
+            r_GR.SetResult(true, System.Convert.ToInt32(t_scoreTex.text), player.coin, treatmentPer);
+            clearGame = true;
 #if UNITY_ANDROID && !UNITY_EDITOR
             FL_Start();
 #endif
@@ -296,10 +330,15 @@ public class RunGameManager : MonoBehaviour
 
     public void DestroyRGD()
     {
-        Destroy(GameObject.Find("RunGameData"));
+        Destroy(GameObject.Find("RunGameData(Clone)"));
+        MapSpawn.mapCnt = 0;
+
 #if UNITY_ANDROID && !UNITY_EDITOR
+        if(clearGame)
+        {
         FL_Stop();
         camera1.Call("release");
+        }
 #endif
     }
 }

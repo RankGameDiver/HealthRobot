@@ -51,6 +51,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
         VesselSpeed = s_Vessel.Speed;
         ArmSpeed = s_Arm.Speed;
         SyringeSpeed = s_Syringe.Speed;
+        Text_Background.SetActive(false);
     }
 
     // Update is called once per frame
@@ -92,6 +93,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
                     if (!isGameOver)
                     {
                         Text_Background.SetActive(true);
+                        Text_Background.GetComponent<AudioManager>().PlayEffectSound(); // 클리어 사운드
                         Text_Background.GetComponent<MiniGameResult>().SetText(HP * 5);
                         isGameOver = true;
                     }
@@ -115,7 +117,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
         {
             VesselSpeed = 0;
             anim_Syringe.Play("Syringes");
-            obj_Syringe.GetComponent<AudioManager>().PlaySound(1);
+            obj_Syringe.GetComponent<AudioManager>().PlayEffectSound(1);
             yield return new WaitForSeconds(1.0f);
             gp_GameProgress = S_GameProgress.Over;
         }
@@ -125,7 +127,8 @@ public class MiniG_S_GameManager : MonoBehaviour {
             HP--;
             GameObject newBand = Instantiate(obj_Band);
             newBand.transform.SetParent(obj_Vessel.transform);
-            newBand.transform.position = new Vector3(obj_Syringe.transform.position.x + 0.2f, obj_Syringe.transform.position.y - 2.3f, 1.0f);
+            obj_Syringe.GetComponent<AudioManager>().PlayEffectSound(2);
+            newBand.transform.position = new Vector3(obj_Syringe.transform.position.x - 0.2f, obj_Syringe.transform.position.y - 2.3f, 1.0f);
             yield return new WaitForSeconds(1.5f);
             if (HP == 0)     // 체력이 0이라면 게임 종료
             {
@@ -138,7 +141,7 @@ public class MiniG_S_GameManager : MonoBehaviour {
             HP--;
             anim_Syringe.Play("Syringes");
             anim_Effect.Play("Effects");
-            obj_Syringe.GetComponent<AudioManager>().PlaySound(0);
+            obj_Syringe.GetComponent<AudioManager>().PlayEffectSound(0);
             yield return new WaitForSeconds(1.0f);
             if (HP == 0)     // 체력이 0이라면 게임 종료
             {

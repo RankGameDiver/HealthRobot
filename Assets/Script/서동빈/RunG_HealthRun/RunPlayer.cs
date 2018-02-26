@@ -6,7 +6,7 @@ using Anima2D;
 public class RunPlayer : MonoBehaviour {
 
     Rigidbody2D m_rigid;
-    Animator m_animator;
+    public Animator m_animator;
 
     private int jumpCnt;
     private bool isUnHitTime = false;
@@ -27,6 +27,14 @@ public class RunPlayer : MonoBehaviour {
 
     public GameObject[] faceObj; // 0 기본 1 웃음 2 슬픔
     public SpriteMeshInstance[] bodyMesh;
+    public GameObject[] genderFace;
+    public GameObject[] genderHair;
+    public GameObject particle;
+
+
+    public AudioSource[] sound;
+    // 0 jump, 1 damage, 3 pong, 4 coin
+
 
     // Use this for initialization
     void Start()
@@ -34,6 +42,20 @@ public class RunPlayer : MonoBehaviour {
         m_rigid = GetComponent<Rigidbody2D>();
         m_animator = GetComponent<Animator>();
         jumpCnt = 2;
+
+        if (PlayerData.gender)
+        {
+            faceObj[0] = genderFace[0];
+            genderFace[0].SetActive(true);
+            genderHair[0].SetActive(true);
+        }
+        else
+        {
+            faceObj[0] = genderFace[1];
+            genderFace[1].SetActive(true);
+            genderHair[1].SetActive(true);
+        }
+
 
         if (currentLife == 0) currentLife = maxLife;
     }
@@ -49,6 +71,7 @@ public class RunPlayer : MonoBehaviour {
         {
             if (jumpCnt > 0)
             {
+                sound[0].PlayScheduled(0);
                 m_rigid.velocity = Vector2.zero;
                 m_rigid.AddForce(new Vector2(0, jump));
                 m_animator.PlayInFixedTime("Jump", 0, 0);
@@ -80,7 +103,7 @@ public class RunPlayer : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Ground")
         {
-            if (jumpCnt != 2)
+            if (jumpCnt != 2 && m_animator.GetInteger("PlayerState") != (int)PlayerState.DIE)
             {
                 m_animator.PlayInFixedTime("Run", 0, 0);
                 jumpCnt = 2;
@@ -93,8 +116,9 @@ public class RunPlayer : MonoBehaviour {
         if(collision.gameObject.tag == "Door")
         {
             r_GM.OnActionButton();
+            r_GM.minigameCnt++;
 
-            switch(collision.gameObject.name)
+            switch (collision.gameObject.name)
             {
                 case "Door1":
                     doorNum = 1;
@@ -121,8 +145,16 @@ public class RunPlayer : MonoBehaviour {
                 faceObj[0].SetActive(false);
                 faceObj[1].SetActive(false);
                 faceObj[2].SetActive(true);
-                StartCoroutine(UnHitTime());
+
+                if(currentLife <= 0)
+                {
+                    r_GM.isPlaying = false;
+                    m_animator.Play("DIE");
+                    speed = 0;
+                }
+                else StartCoroutine(UnHitTime());
             }
+            sound[1].PlayScheduled(0);
         }
 
         if (collision.gameObject.tag == "Score")
@@ -172,6 +204,9 @@ public class RunPlayer : MonoBehaviour {
             int temp_Score = System.Convert.ToInt32(r_GM.t_scoreTex.text) + gettingScore;
             r_GM.t_scoreTex.text = temp_Score.ToString();
             Destroy(collision.gameObject);
+
+            sound[2].PlayScheduled(0);
+            Instantiate(particle).transform.position = collision.transform.position ;
         }
 
         if (collision.gameObject.tag == "Heart")
@@ -180,7 +215,20 @@ public class RunPlayer : MonoBehaviour {
             {
                 currentLife++;
                 r_GM.AddHeart();
+                Destroy(collision.gameObject);
+
             }
+            sound[2].PlayScheduled(0);
+            Instantiate(particle).transform.position = collision.transform.position;
+        }
+
+        if (collision.gameObject.tag =="Coin")
+        {
+            coin += 10;
+            r_GM.t_Coin.text = (System.Convert.ToInt32(r_GM.t_Coin.text) + 10).ToString();
+            sound[3].PlayScheduled(0);
+            Instantiate(particle).transform.position = collision.transform.position;
+            Destroy(collision.gameObject);
         }
     }
 
@@ -239,7 +287,7 @@ public class RunPlayer : MonoBehaviour {
         if (transform.localScale.x >= 1.5f)
         {
             transform.localScale = new Vector3(1.5f, 1.5f);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(10f);
             StartCoroutine(PlayerGetSmaller());
         }
         else
@@ -269,6 +317,7 @@ public class RunPlayer : MonoBehaviour {
             faceObj[0].SetActive(true);
             faceObj[1].SetActive(false);
             faceObj[2].SetActive(false);
+            StartCoroutine(UnHitTime());
         }
         else
         {
@@ -287,5 +336,11 @@ public class RunPlayer : MonoBehaviour {
         }
 
         return true;
+    }
+
+    public void Die()
+    {
+        r_GM.r_GR.SetResult(false, System.Convert.ToInt32(r_GM.t_scoreTex.text), coin, r_GM.treatmentPer);
+        r_GM.r_GR.gameObject.SetActive(true);
     }
 }

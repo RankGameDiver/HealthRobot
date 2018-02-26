@@ -8,6 +8,7 @@ public class UImanager : MonoBehaviour
     public GameObject title;
     private Image titleImg { get { return title.GetComponent<Image>(); } }
     private Fade fade;
+    public GameObject[] objArr;
     public bool ingame;
 
     private M_VirusGame game { get { return gameObject.GetComponent<M_VirusGame>(); } }
@@ -27,10 +28,12 @@ public class UImanager : MonoBehaviour
         {
             fade.FadeOut(titleImg);
         }
+        else if (ingame) { }
         else
         {
             ingame = true;
-            game.tempTime = 0;
+            objArr[0].SetActive(true);
+            StartCoroutine(game.SpawnVirus());
         }
     }
 }

@@ -54,7 +54,6 @@ public class PuzzlePiece : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Board" && !isMouseDown && !clear)
         {
-            Debug.Log("dfa");
             PuzzleBoard board = collision.GetComponent<PuzzleBoard>();
             if (board.puzzleNum == puzzleNum)
             {

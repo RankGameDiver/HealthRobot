@@ -6,23 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scene/Title.unity
-    guid: 619f631158f04e649aa1db44b2f6c98a
-  - enabled: 1
-    path: Assets/Scene/MiniG_Mun.unity
-    guid: 61b940e491f07ec4c93fd5426855da45
-  - enabled: 1
-    path: Assets/Scene/RunG_HealthRun.unity
-    guid: ed776f053e7f768449b512f26bda5210
-  - enabled: 1
-    path: Assets/Scene/MiniG_Syringe.unity
-    guid: 847586bc1bebcf547a373eaff5f1764a
-  - enabled: 1
     path: Assets/Scene/MiniG_Virus.unity
     guid: 28c7ef6cb805e0f46a8f72715fb31d77
-  - enabled: 1
-    path: Assets/Scene/MainMenu.unity
-    guid: e35da56394e83f94180601ca1648b596
-  - enabled: 1
-    path: Assets/Scene/CharacterCreate.unity
-    guid: a13ad2ad923d5b84188848b68409ad7b

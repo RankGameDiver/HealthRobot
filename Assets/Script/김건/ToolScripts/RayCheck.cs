@@ -20,7 +20,7 @@ public class RayCheck : MonoBehaviour
 
         if (Input.touchCount > 0) // 터치시 실행
         {
-            touch = Input.GetTouch(0);
+            touch = Input.GetTouch(1);
             touchPos = Camera.main.ScreenToViewportPoint(touch.position);
             ray = new Ray2D(touchPos, Vector2.zero);
             hit = Physics2D.Raycast(ray.origin, ray.direction);
@@ -31,7 +31,6 @@ public class RayCheck : MonoBehaviour
     {
         if (hit.collider != null)
         {
-            Debug.Log("hit.collider" + hit.collider);
             return true;
         }
         return false;
