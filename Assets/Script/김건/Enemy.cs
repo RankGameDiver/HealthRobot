@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
     public IEnumerator VirusDead()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = game.virusDieImg[enemyKind];
-        //sound.PlaySound();
+        boxCol.size = new Vector2(0, 0);
         yield return new WaitForSeconds(0.2f);
         gameObject.SetActive(false);
         yield break;

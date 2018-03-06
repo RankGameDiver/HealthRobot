@@ -35,23 +35,30 @@ public class M_VirusGame: MonoBehaviour
     private void TouchCheck()
     {
         rayCheck.Touch();
-        if (rayCheck.Ray() && !gameover)
+        for (int i = 0; i < rayCheck.GetTouchCount(); i++)
         {
-            Enemy s_enemy = rayCheck.Ray("Enemy").GetComponent<Enemy>();
-            GameObject g_enemy = rayCheck.Ray("Enemy");
-            if (s_enemy.life <= 1)
+            if (rayCheck.Ray(i) && !gameover)
             {
-                totalScore += s_enemy.score;
-                StartCoroutine(s_enemy.VirusDead());
+                Enemy s_enemy = rayCheck.Ray(i, "Enemy").GetComponent<Enemy>();
+                GameObject g_enemy = rayCheck.Ray(i, "Enemy");
+                if (s_enemy.life <= 1)
+                {
+                    totalScore += s_enemy.score;
+                    StartCoroutine(s_enemy.VirusDead());
+                }
+                else
+                {
+                    s_enemy.life--;
+                }
+                s_enemy.GetSound().PlaySound();           
+                Instantiate(particle).transform.position = g_enemy.transform.position + 
+                    new Vector3((float)(Random.Range(0, 11) - 5) / 10, (float)(Random.Range(0, 11) - 5) / 10);
             }
-            else
+            if (rayCheck.GetTouchCount() == i + 1)
             {
-                s_enemy.life--;           
+                rayCheck.RayReset();
             }
-            s_enemy.GetSound().PlaySound();
-            rayCheck.RayReset();
-            Instantiate(particle).transform.position = g_enemy.transform.position + new Vector3((float)(Random.Range(0,11) - 5) / 10, (float)(Random.Range(0, 11) - 5) / 10);
-        }
+        }     
     }
 
     public IEnumerator SpawnVirus()

@@ -236,6 +236,18 @@ public class RunPlayer : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Door")
         {
+            if (r_GM.minigameCnt >= 4)
+            {
+                r_GM.GameEnd = true;
+                Time.timeScale = 0;
+                r_GM.r_GR.gameObject.SetActive(true);
+                r_GM.r_GR.SetResult(true, System.Convert.ToInt32(r_GM.t_scoreTex.text), coin, r_GM.treatmentPer);
+                r_GM.clearGame = true;
+#if UNITY_ANDROID && !UNITY_EDITOR
+            FL_Start();
+#endif
+            }
+
             r_GM.OffActionButton();
             doorNum = 0;
         }

@@ -21,10 +21,10 @@ public class MapSpawn : MonoBehaviour {
         }
         else
         {
-            pattern = Instantiate(rGM.doorPattern[Random.Range(0, rGM.doorPattern.Length)]).transform;
+            if(rGM.minigameCnt >= 3) pattern = Instantiate(rGM.doorPattern[Random.Range(0, rGM.doorPattern.Length)]).transform;
+            else pattern = Instantiate(rGM.doorPattern[rGM.minigameCnt]).transform;
             mapCnt = 0;
         }
-        Debug.Log(mapCnt);
         pattern.parent = transform;
         pattern.localPosition = new Vector3(0, 0);
         GameObject _gagu = Instantiate(rGM.gagu);

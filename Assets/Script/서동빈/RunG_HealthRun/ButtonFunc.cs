@@ -57,7 +57,7 @@ public class ButtonFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void CheckSerial()
     {
-        if (serialnumTxt.text == "HealthRun")
+        if (serialnumTxt.text == "HealthRun" || serialnumTxt.text == "Hospital" || serialnumTxt.text == "Out Of The Hospital Tomorrow")
         {
             PlayerData.money += 1000;
         }

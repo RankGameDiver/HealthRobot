@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stage: 1
-  TimeSec: 10
+  TimeSec: 60
   PieceParents: {fileID: 1833630844}
   Piece: {fileID: 1886409259035824, guid: a81fce80c16d5ec41905e41202d4ee84, type: 2}
   PieceBackground: {fileID: 1233921887723964, guid: 66f94d4c148b0eb4885d2972b480dfc6,
