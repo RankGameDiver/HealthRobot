@@ -7,7 +7,7 @@ using LitJson;
 public class SaveLoad : MonoBehaviour
 {
     [SerializeField]
-    private List<Data> S_Data = new List<Data>();
+    private List<Data> S_Data;
 
     void Start()
     {

@@ -13,8 +13,6 @@ public class UImanager : MonoBehaviour
 
     private M_VirusGame game { get { return gameObject.GetComponent<M_VirusGame>(); } }
 
-    private int deltaTime;
-
     void Start()
     {
         fade = gameObject.AddComponent<Fade>();

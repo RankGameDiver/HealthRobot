@@ -3,182 +3,188 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum S_GameProgress   // 게임의 진행상태 확인
+public class MiniG_S_GameManager : MonoBehaviour
 {
-    Start,
-    Over,
-    None
-}
+    private bool isMoving = false;        // 주사기가 움직이고 있는지 확인하는 변수
 
-public class MiniG_S_GameManager : MonoBehaviour {
+    private string GameState = "none";    // 게임의 진행 상태를 알려주는 변수
 
-    private float VesselSpeed;     // 팔의 좌우 이동속도를 조절하는 변수
-    private float ArmSpeed;
-    private float SyringeSpeed; // 주사기의 상하 이동속도를 조절하는 변수
     private int count = 0;      // 팔이 좌우를 몇번 왔다갔다 했는지 카운트하는 변수
-    private float Rand;
 
-    private S_GameProgress gp_GameProgress = S_GameProgress.None;     // 타이틀이 사라지고 게임 시작했는지 확인하는 변수
-    private bool Moving = false;        // 주사기가 움직이고 있는지 확인하는 변수
-    private bool isGameOver = false;
-    
-    public int HP = 1;              // 체력 변수
+    private float ArmSpeed;     // 팔의 스피드를 조절하는 변수
+    private float SyringeSpeed; // 주사기의 상하 이동속도를 조절하는 변수
 
-    public Sprite DistroyHp;
-    public GameObject Title_Background;
-    public GameObject obj_Title;
-    public GameObject obj_HP;
-    public GameObject obj_Vessel;
-    public GameObject obj_Arm;
-    public GameObject obj_Syringe;
-    public GameObject obj_Band;
-    public GameObject Text_Background;
-    public Animator anim_Syringe;
-    public Animator anim_Effect;
 
-    private Mini_S_ObjectManager s_Vessel;
+    public int HP = 1;      // 체력을 조절하는 변수 변수
+
+    public Sprite DeadHP;    // 죽은 HP 이미지를 저장하는 변수
+    public Transform LiveHP;    // 살아있는 HP 이미지를 저장하는 변수
+
+    public Transform Arm;       // 팔 오브젝트를 저장하고 위치나 크기를 바꾸어주는 변수
+    public Transform Vessel;    // 혈관 오브젝트를 저장하고 위치나 크기를 바꾸어주는 변수
+    public Transform Syringe;   // 주사기 오브젝트를 저장하고 위치나 크기를 바꾸어주는 변수
+
+    public GameObject Band;     // 밴드 오브젝트를 저장하는 변수
+    public GameObject Result;   // 결과창 오브젝트를 저장하는 변수
+
+    // 타이틀과 타이틀 배경 오브젝트를 저장하는 변수;
+    public GameObject Title;
+    public GameObject TitleBg;
+
+
+    public Animator animSyringe;
+    public Animator animEffect;
+
+    // 오브젝트마다 가지고있는 오브젝트매니저를 받아오는 변수
     private Mini_S_ObjectManager s_Arm;
+    private Mini_S_ObjectManager s_Vessel;
     private Mini_S_ObjectManager s_Syringe;
 
-    // Use this for initialization
     void Start()
     {
-        StartCoroutine(CreationHP());       // HP오브젝트 설정해놓은 HP만큼 생성
-        StartCoroutine(TitleTransform());   // 타이틀 조정
-        s_Vessel = obj_Vessel.GetComponent<Mini_S_ObjectManager>();
-        s_Arm = obj_Arm.GetComponent<Mini_S_ObjectManager>();
-        s_Syringe = obj_Syringe.GetComponent<Mini_S_ObjectManager>();
-        VesselSpeed = s_Vessel.Speed;
+        s_Arm = Arm.GetComponent<Mini_S_ObjectManager>();
+        s_Vessel = Vessel.GetComponent<Mini_S_ObjectManager>();
+        s_Syringe = Syringe.GetComponent<Mini_S_ObjectManager>();
+
         ArmSpeed = s_Arm.Speed;
         SyringeSpeed = s_Syringe.Speed;
-        Text_Background.SetActive(false);
+        Result.SetActive(false);
+
+        StartCoroutine(CreationHP());       // HP오브젝트 설정해놓은 HP만큼 생성
+        StartCoroutine(TitleTransform());   // 타이틀 조정
     }
 
-    // Update is called once per frame
     void Update()
     {
-        switch(gp_GameProgress)     // 게임의 진행상태에 따라 게임 상태를 변경
+        // 게임이 끝나지 않았다면
+        if (GameState.Equals("start"))
         {
-            case S_GameProgress.Start:
-                {
-                    int RandomSpeed = Random.Range(2, 5);
-                    if (s_Vessel.transform.position.x <= -3.1f || s_Vessel.transform.position.x >= 3.75f)   // 팔 움직임 좌우 조작
-                    {
-                        VesselSpeed *= -1;
-                        count++;
-                        if (count % 2 == 0)     // 팔이 좌우로 한번 왔다갔다하면 스피드 증가
-                            VesselSpeed = RandomSpeed;
-                    }
+            int RandomSpeed = Random.Range(2, 5);
 
-                    s_Vessel.transform.Translate(new Vector3(VesselSpeed * Time.deltaTime, 0, 0));  // 팔 이동
+            if (Arm.position.x <= -3.1f || Arm.position.x >= 3.75f)   // 팔 움직임 좌우 조작
+            {
+                ArmSpeed *= -1;
+                count++;
 
-                    if (s_Arm.transform.position.x <= -3.1f || s_Arm.transform.position.x >= 3.75f)   // 팔 움직임 좌우 조작
-                    {
-                        ArmSpeed *= -1;
-                        if (count % 2 == 0)     // 팔이 좌우로 한번 왔다갔다하면 스피드 증가
-                            ArmSpeed = RandomSpeed;
-                    }
+                if (count % 2 == 0)     // 팔이 좌우로 한번 왔다갔다하면 스피드 증가
+                    ArmSpeed = RandomSpeed;
+            }
 
-                    s_Arm.transform.Translate(new Vector3(ArmSpeed * Time.deltaTime, 0, 0));  // 팔 이동
+            Arm.Translate(new Vector3(ArmSpeed * Time.deltaTime, 0, 0));  // 팔 이동
 
-                    if (Input.GetMouseButtonDown(0) && !Moving) // 화면 클릭시 주사기가 내려옴
-                    {
-                        Moving = true;
-                        StartCoroutine(SyringsMove());
-                    }
-                    break;
-                }
-            case S_GameProgress.Over:
-                {
-                    if (!isGameOver)
-                    {
-                        Text_Background.SetActive(true);
-                        Text_Background.GetComponent<AudioManager>().PlayEffectSound(); // 클리어 사운드
-                        Text_Background.GetComponent<MiniGameResult>().SetText(HP * 5);
-                        isGameOver = true;
-                    }
-                    break;
-                }
-            case S_GameProgress.None:     // 여기에서 할 일은 Start함수에 넣자
-                {   break;  }
+            if (Input.GetMouseButtonDown(0) && !isMoving) // 화면 클릭시 주사기가 내려옴
+            {
+                isMoving = true;
+                StartCoroutine(SyringsMove());
+            }
         }
     }
 
+    // 주사기를 움직이게 하고 주사기 판정을 확인하는 함수
     private IEnumerator SyringsMove()
     {
-        Rand = Random.Range(-1.0f, 1.0f);
-        while (s_Syringe.transform.position.y >= 2.5 + Rand)       // 주사기가 Y좌표까지 내려갈때까지 실행
+        float Rand = Random.Range(-1.0f, 1.0f);
+
+        // 주사기가 Y좌표까지 내려갈때까지 실행
+        while (Syringe.position.y >= 2.5 + Rand)
         {
-            s_Syringe.transform.position = s_Syringe.transform.position + new Vector3(0, -SyringeSpeed * Time.deltaTime);
+            Syringe.position += new Vector3(0, -SyringeSpeed * Time.deltaTime);
             yield return null;
         }
 
-        if (s_Vessel.Collision) // 주사기와 혈관이 충돌했을시
+        // 주사기와 혈관이 충돌했을시
+        if (s_Vessel.Collision)
         {
-            VesselSpeed = 0;
-            anim_Syringe.Play("Syringes");
-            obj_Syringe.GetComponent<AudioManager>().PlayEffectSound(1);
+            ArmSpeed = 0;
+            animSyringe.Play("Syringes");
+            Syringe.GetComponent<AudioManager>().PlayEffectSound(1);
+
             yield return new WaitForSeconds(1.0f);
-            gp_GameProgress = S_GameProgress.Over;
+
+            Result.SetActive(true);
+            Result.GetComponent<AudioManager>().PlayEffectSound();
+            Result.GetComponent<MiniGameResult>().SetText(HP * 5);
+            GameState = "over";
         }
-        else if (s_Arm.Collision) // 주사기와 팔이 충돌했을시
+        // 주사기와 팔이 충돌했을시
+        else if (s_Arm.Collision)
         {
-            obj_HP.transform.parent.transform.GetChild(HP - 1).GetComponent<Image>().sprite = DistroyHp;
+            LiveHP.parent.GetChild(HP - 1).GetComponent<Image>().sprite = DeadHP;
             HP--;
-            GameObject newBand = Instantiate(obj_Band);
-            newBand.transform.SetParent(obj_Vessel.transform);
-            obj_Syringe.GetComponent<AudioManager>().PlayEffectSound(2);
-            newBand.transform.position = new Vector3(obj_Syringe.transform.position.x - 0.2f, obj_Syringe.transform.position.y - 2.3f, 1.0f);
+
+            GameObject newGameObject = Instantiate(Band);
+            Transform newTransform = newGameObject.transform;
+
+            newTransform.SetParent(Vessel.transform);
+            newTransform.position = new Vector3(Syringe.position.x - 0.2f, Syringe.position.y - 2.3f, 1.0f);
+
+            Syringe.GetComponent<AudioManager>().PlayEffectSound(2);
+
             yield return new WaitForSeconds(1.5f);
-            if (HP == 0)     // 체력이 0이라면 게임 종료
-            {
-                gp_GameProgress = S_GameProgress.Over;
-            }
+
+
         }
-        else                 // 주사기가 아무것도 충돌 안했을 시
+        // 주사기가 아무것도 충돌 안했을 시
+        else
         {
-            obj_HP.transform.parent.transform.GetChild(HP - 1).GetComponent<Image>().sprite = DistroyHp;
+            LiveHP.parent.GetChild(HP - 1).GetComponent<Image>().sprite = DeadHP;
             HP--;
-            anim_Syringe.Play("Syringes");
-            anim_Effect.Play("Effects");
-            obj_Syringe.GetComponent<AudioManager>().PlayEffectSound(0);
+
+            animSyringe.Play("Syringes");
+            animEffect.Play("Effects");
+
+            Syringe.GetComponent<AudioManager>().PlayEffectSound(0);
+
             yield return new WaitForSeconds(1.0f);
-            if (HP == 0)     // 체력이 0이라면 게임 종료
-            {
-                gp_GameProgress = S_GameProgress.Over;
-            }
         }
 
-        while (s_Syringe.transform.position.y <= 8.0f)      // 주사기가 Y좌표까지 올라갈때까지 실행
+        // 체력이 0이라면 게임 종료
+        if (HP == 0)
         {
-            s_Syringe.transform.position = s_Syringe.transform.position + new Vector3(0, SyringeSpeed * Time.deltaTime);
+            Result.SetActive(true);
+            Result.GetComponent<AudioManager>().PlayEffectSound();
+            Result.GetComponent<MiniGameResult>().SetText(HP * 5);
+            GameState = "over";
+        }
+
+        while (Syringe.position.y <= 8.0f)      // 주사기가 Y좌표까지 올라갈때까지 실행
+        {
+            Syringe.position += new Vector3(0, SyringeSpeed * Time.deltaTime);
             yield return null;
         }
-        Moving = false;
 
+        isMoving = false;
     }
 
+    // 타이틀과 타이틀의 배경 알파값을 조절하는 함수
     private IEnumerator TitleTransform()
     {
-        yield return new WaitForSeconds(2.0f);  // 맨 처음 타이틀을 2초간 보여준다.
-        for (float i = 255; i >= 0; i -= 2)     // 맨 처음 타이틀과 하얀색 배경 투명하게 만들어줌
+        yield return new WaitForSeconds(2.0f);
+
+        // 맨 처음 타이틀과 하얀색 배경 투명하게 만들어줌
+        for (float i = 255; i >= 0; i -= 2)
         {
-            Title_Background.transform.GetComponent<Image>().color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, i / 255.0f);
-            obj_Title.transform.GetComponent<Image>().color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, i / 255.0f);
+            Title.GetComponent<Image>().color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, i / 255.0f);
+            TitleBg.GetComponent<Image>().color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, i / 255.0f);
             yield return new WaitForSeconds(0.01f);
         }
-        Title_Background.SetActive(false);  // 있어도 그만 없어도 그만인 코드
-        obj_Title.SetActive(false);         // 있어도 그만 없어도 그만인 코드
-        gp_GameProgress = S_GameProgress.Start;   // 게임이 시작됬다는걸 알려줌
+
+        TitleBg.SetActive(false);
+        Title.SetActive(false);
+
+        GameState = "start";
     }
 
+    // HP오브젝트 설정해놓은 HP만큼 생성하는 함수
     private IEnumerator CreationHP()
     {
-        for (int i = 1; i < HP; i++)    // 새로운 HP오브젝트를 생성하고 부모를 하나로 만들어 줌.
+        // 새로운 HP오브젝트를 생성하고 부모를 하나로 만들어 줌.
+        for (int i = 1; i < HP; i++)
         {
-            GameObject newHp = Instantiate(obj_HP);
-            newHp.transform.SetParent(obj_HP.transform.parent.transform);
-            newHp.transform.localScale = new Vector3(1.5f, 1.5f, 1.0f);
+            GameObject newGameObject = Instantiate(LiveHP.gameObject);
+            Transform newTransform = newGameObject.transform;
+            newTransform.SetParent(LiveHP.parent);
+            newTransform.localScale = new Vector3(1.5f, 1.5f, 1.0f);
         }
         yield return null;
     }

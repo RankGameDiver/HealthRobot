@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Mini_S_ObjectManager : MonoBehaviour
 {
+    // 오브젝트 스피드 조정 변수
+    public float Speed;
 
-    public float Speed; // 팔 스피드
+    // 오브젝트의 충돌 판정을 확인하는 변수
     [HideInInspector]
     public bool Collision = false;
 

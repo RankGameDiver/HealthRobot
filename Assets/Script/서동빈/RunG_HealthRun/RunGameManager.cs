@@ -211,10 +211,10 @@ public class RunGameManager : MonoBehaviour
             r_GD.patternIndex[i].transform.parent = r_GD.gameObject.transform;
         }
         r_GD.score = System.Convert.ToInt32(t_scoreTex.text);
-        r_GD.coin = player.coin;
+        r_GD.coin = player.gettingCoin;
         r_GD.treatmentPer = treatmentPer;
         r_GD.currentLife = player.currentLife;
-        for (int i = 0; i < 6; i++) r_GD.health[i] = player.healthTime[i];
+        for (int i = 0; i < 6; i++) r_GD.health[i] = player.isGetHealthTime[i];
         r_GD.minigameCnt = minigameCnt;
 
         r_GD.isMapChange = true;
@@ -278,7 +278,7 @@ public class RunGameManager : MonoBehaviour
         player.m_animator.Play("Run");
         r_GD.isMapChange = false;
         t_scoreTex.text = r_GD.score.ToString();
-        player.healthTime = r_GD.health;
+        player.isGetHealthTime = r_GD.health;
         for (int i = 0; i < player.maxLife - r_GD.currentLife; i++)
         {
             SubHeart();
@@ -294,7 +294,7 @@ public class RunGameManager : MonoBehaviour
             _gagu.transform.parent = bgIndex.transform.GetChild(i).transform;
             _gagu.transform.localPosition = Vector3.zero;
         }
-        player.coin = r_GD.coin;
+        player.gettingCoin = r_GD.coin;
         t_Coin.text = r_GD.coin.ToString();
 
         if (player.ChecAllHealth())
@@ -308,7 +308,7 @@ public class RunGameManager : MonoBehaviour
         {
             for (int i = 0; i < 6; i++)
             {
-                player.healthTime[i] = r_GD.health[i];
+                player.isGetHealthTime[i] = r_GD.health[i];
             }
         }
         treatmentPer = r_GD.treatmentPer;
@@ -317,14 +317,7 @@ public class RunGameManager : MonoBehaviour
 
         if (minigameCnt >= 4)
         {
-            GameEnd = true;
-            Time.timeScale = 0;
-            r_GR.gameObject.SetActive(true);
-            r_GR.SetResult(true, System.Convert.ToInt32(t_scoreTex.text), player.coin, treatmentPer);
-            clearGame = true;
-#if UNITY_ANDROID && !UNITY_EDITOR
-            FL_Start();
-#endif
+            EndGame();
         }
     }
 
@@ -339,6 +332,18 @@ public class RunGameManager : MonoBehaviour
         FL_Stop();
         camera1.Call("release");
         }
+#endif
+    }
+
+    public void EndGame()
+    {
+        GameEnd = true;
+        Time.timeScale = 0;
+        r_GR.gameObject.SetActive(true);
+        r_GR.SetResult(true, System.Convert.ToInt32(t_scoreTex.text), player.gettingCoin, treatmentPer);
+        clearGame = true;
+#if UNITY_ANDROID && !UNITY_EDITOR
+            FL_Start();
 #endif
     }
 }

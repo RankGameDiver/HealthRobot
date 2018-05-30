@@ -13,6 +13,7 @@ TagManager:
   - Data
   - Door
   - Coin
+  - Nurse
   layers:
   - Default
   - TransparentFX
