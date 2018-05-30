@@ -13,8 +13,16 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        ExpText(50 * level);
+    }
+
+    public void ExpText(float _maxValue)
+    {
         LvText.text = level.ToString();
-        ExpBar.value = exp / 50 * level;
+        ExpBar.value = exp / _maxValue;
+        string percent = string.Format("{0:f2}", exp / _maxValue * 100);
+        ExpPercent.text = percent + "%";
+        //ExpPercent.text = (exp / _maxValue * 100).ToString() + "%";
     }
 
     public void UpExp()
@@ -26,10 +34,7 @@ public class LevelManager : MonoBehaviour
             level += 1;
             exp -= maxValue;
         }
-
-        LvText.text = level.ToString();
-        ExpBar.value = exp / maxValue;
-
+        ExpText(maxValue);
     }
 
 }
